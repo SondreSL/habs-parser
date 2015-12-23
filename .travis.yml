@@ -89,8 +89,8 @@ after_success:
        cp doc/DocABS.html dist/doc/html/habs-parser/;
        cd dist/doc/html/habs-parser/;
        git init;
-       git config user.name "Travis CI"
-       git config user.email "nobody@nobody.org"
+       git config user.name "Travis CI";
+       git config user.email "nobody@nobody.org";
        git add .;
        git commit -m "Deploy to Github Pages";
        git push --force --quiet "https://${GH_TOKEN}@$github.com/${TRAVIS_REPO_SLUG}.git" master:gh-pages > /dev/null 2>&1;
