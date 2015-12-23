@@ -93,7 +93,7 @@ after_success:
        git config user.email "nobody@nobody.org";
        git add .;
        git commit -m "Deploy to Github Pages";
-       git push --force --quiet "https://${GH_TOKEN}@$github.com/${TRAVIS_REPO_SLUG}.git" master:gh-pages > /dev/null 2>&1;
+       git push --force --quiet "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" master:gh-pages > /dev/null 2>&1;
     fi
 
 notifications:
