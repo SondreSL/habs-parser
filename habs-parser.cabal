@@ -1,0 +1,64 @@
+name: habs-parser
+version: 0.0.1
+
+license: BSD3
+license-file: LICENSE
+author: Nikolaos Bezirgiannis
+maintainer: Nikolaos Bezirgiannis <bezirgia@cwi.nl>
+copyright: Copyright (c) 2013-2015, The Envisage Consortium
+homepage: http://abs-models.org
+bug-reports: https://github.com/abstools/habs-parser/issues
+
+stability: provisional
+tested-with: GHC == 7.8.4, GHC == 7.10.1, GHC == 7.10.2, GHC == 7.10.3
+build-type: Simple
+cabal-version: >= 1.8
+
+category: Concurrency, Distributed Computing
+synopsis: The parser of the Haskell-ABS (habs) backend
+description:
+  A transcompiler from the ABS language to Haskell.
+  This Haskell package includes both the ABS stdlib & ABS runtime expressed in Haskell,
+  as well as the transcompiler to translate ABS code to Haskell code.
+  .
+  ABS developers are advised to check the online documentation of the <http://abstools.github.io/habs-parser/DocABS.html BNF grammar for ABS>
+
+extra-source-files:
+  README.md
+
+source-repository head
+  type: git
+  location: git://github.com/abstools/habs-parser.git
+  branch: master
+
+library
+  build-depends:
+    base >= 4.7 && < 5,
+    -- array needed by the BNFC-generated parser
+    array,
+    filepath,
+    directory
+  exposed-modules:
+    ABS.AST,
+    ABS.Parser
+  other-modules:
+    -- the generated AST tree
+    BNFC_Gen.AbsABS,
+    -- the generated lexer
+    BNFC_Gen.LexABS,
+    -- the generated parser
+    BNFC_Gen.ParABS,
+    -- the generated pretty-printer
+    BNFC_Gen.PrintABS,
+    -- an accompanying Error monad, used for parsing errors
+    BNFC_Gen.ErrM
+  ghc-options: -Wall -fno-warn-orphans
+  hs-source-dirs: src, gen-hs
+
+test-suite parse-samples
+  type: exitcode-stdio-1.0
+  main-is: parse-samples.hs
+  build-depends:
+    base,
+    habs-parser
+  hs-source-dirs: tests

@@ -1,0 +1,49 @@
+# HASKELL
+dist/
+*.hi
+*.o
+*.dyn_o
+*.dyn_hi
+*.th.hs
+*.hcr
+
+# CABAL
+.cabal-sandbox/
+cabal.sandbox.config
+cabal.config
+
+# BNFC
+ParABS.y
+LexABS.x
+ParABS.y.bak
+LexABS.x.bak
+TestABS.hs.bak
+ErrM.hs.bak
+AbsABS.hs.bak
+PrintABS.hs.bak
+SkelABS.hs.bak
+TestABS.hs
+
+
+# TEST-SUITE
+test/abs-samples/*/*.hs
+test/abs-samples/*/*.out
+*.stderr
+*.stdout
+
+# OTHER
+*.ast
+*_flymake.abs
+*_flymake.hs
+TAGS
+
+# OS
+*~
+*#
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
