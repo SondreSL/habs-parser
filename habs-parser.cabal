@@ -60,5 +60,6 @@ test-suite parse-samples
   main-is: parse-samples.hs
   build-depends:
     base,
-    habs-parser
+    habs-parser,
+    directory
   hs-source-dirs: tests

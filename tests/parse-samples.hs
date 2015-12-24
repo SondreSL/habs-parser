@@ -5,12 +5,23 @@ import ABS.Parser
 import System.Environment (getArgs)
 import Control.Monad (when)
 import System.Exit (exitFailure)
+import System.Directory (doesDirectoryExist)
+
+pathToSampleSubmodule = "./habs-samples"
 
 main :: IO ()
 main = do
-  args <- getArgs
-  when (null args) $ error "USAGE: cabal test --test-option=PATH_TO_abs-samples_DIR"
-  res <- parseFileOrDir (head args)
+  -- determine the path to the ABS sample source files (for parsing them) 
+  samplesDir <- do
+         argv <- getArgs
+         if null argv
+          then do
+           b <- doesDirectoryExist pathToSampleSubmodule
+           if b
+            then return pathToSampleSubmodule
+            else error "USAGE: git submodule update --init; cabal test *OR* cabal test --test-option=PATH_TO_abs-samples_DIR"
+          else return $ head argv
+  res <- parseFileOrDir samplesDir
   let failed = filter (\case 
                        (_,Bad _) -> True
                        _ -> False

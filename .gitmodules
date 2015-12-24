@@ -1,0 +1,3 @@
+[submodule "habs-samples"]
+	path = habs-samples
+	url = https://github.com/abstools/habs-samples

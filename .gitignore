@@ -24,13 +24,6 @@ PrintABS.hs.bak
 SkelABS.hs.bak
 TestABS.hs
 
-
-# TEST-SUITE
-test/abs-samples/*/*.hs
-test/abs-samples/*/*.out
-*.stderr
-*.stdout
-
 # OTHER
 *.ast
 *_flymake.abs
