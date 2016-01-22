@@ -7,6 +7,7 @@ import Control.Monad (when)
 import System.Exit (exitFailure)
 import System.Directory (doesDirectoryExist)
 
+pathToSampleSubmodule :: String
 pathToSampleSubmodule = "./habs-samples"
 
 main :: IO ()

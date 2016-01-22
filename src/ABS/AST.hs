@@ -1,10 +1,9 @@
 -- | A wrapper on the BNFC-generated AST, that re-adds (custom) Eq,Ord instances after being sed-removed by @make generate@.
-module ABS.AST (
-                module BNFC_Gen.AbsABS
-               ) where
+module ABS.AST 
+    ( module BNFC_Gen.AbsABS
+    ) where
 
 import BNFC_Gen.AbsABS
-
 
 instance Eq UIdent where
     UIdent (_,s1) == UIdent (_, s2) = s1 == s2

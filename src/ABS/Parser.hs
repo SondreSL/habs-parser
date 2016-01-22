@@ -1,7 +1,11 @@
-module ABS.Parser (
-                   parseString, parseFile, parseDir, parseFileOrDir, 
-                   Err (..)
-                  ) where
+-- | The parse phase as a top-level command to be called by the main compiler module.
+module ABS.Parser 
+    ( parseString 
+    , parseFile
+    , parseDir
+    , parseFileOrDir
+    , Err (..)
+    ) where
 
 import qualified ABS.AST as ABS
 import BNFC_Gen.ParABS
