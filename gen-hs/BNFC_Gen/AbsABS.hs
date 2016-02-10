@@ -28,7 +28,7 @@ data Export
   deriving (Show, Read)
 
 data Import
-    = AnyImport ImportType TType AnyIdent
+    = AnyImport ImportType TType [AnyIdent]
     | AnyFromImport ImportType [AnyIdent] QType
     | StarFromImport ImportType QType
   deriving (Show, Read)

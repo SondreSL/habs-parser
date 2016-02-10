@@ -114,7 +114,7 @@ instance Print Export where
   prtList _ (x:xs) = (concatD [prt 0 x, doc (showString ";"), prt 0 xs])
 instance Print Import where
   prt i e = case e of
-    AnyImport importtype ttype anyident -> prPrec i 0 (concatD [prt 0 importtype, prt 0 ttype, prt 0 anyident])
+    AnyImport importtype ttype anyidents -> prPrec i 0 (concatD [prt 0 importtype, prt 0 ttype, prt 0 anyidents])
     AnyFromImport importtype anyidents qtype -> prPrec i 0 (concatD [prt 0 importtype, prt 0 anyidents, doc (showString "from"), prt 0 qtype])
     StarFromImport importtype qtype -> prPrec i 0 (concatD [prt 0 importtype, doc (showString "*"), doc (showString "from"), prt 0 qtype])
   prtList _ [] = (concatD [])
