@@ -24,7 +24,7 @@ StarFromExport. Export ::= "export" "*" "from" QType ;
 terminator Export ";" ;
 
 -- Imports
-AnyImport. Import ::= ImportType TType [AnyIdent]  ; -- maybe ambiguous, but no such claim by bnfc
+AnyImport. Import ::= ImportType TType AnyIdent  ; -- maybe ambiguous, but no such claim by bnfc
 AnyFromImport. Import ::= ImportType [AnyIdent] "from" QType ;
 StarFromImport. Import ::= ImportType "*" "from" QType ;
 terminator Import ";" ;

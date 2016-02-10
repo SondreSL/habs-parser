@@ -79,7 +79,7 @@ All other symbols are terminals.
   |  |  **|**  | ``export`` ``*`` ``from`` //QType// 
   | //[Export]// | -> | **eps**
   |  |  **|**  | //Export// ``;`` //[Export]// 
-  | //Import// | -> | //ImportType// //TType// //[AnyIdent]// 
+  | //Import// | -> | //ImportType// //TType// //AnyIdent// 
   |  |  **|**  | //ImportType// //[AnyIdent]// ``from`` //QType// 
   |  |  **|**  | //ImportType// ``*`` ``from`` //QType// 
   | //[Import]// | -> | **eps**
