@@ -226,8 +226,8 @@ All other symbols are terminals.
   |  |  **|**  | ``thisDC`` 
   |  |  **|**  | //String// 
   |  |  **|**  | //Integer// 
-  | //EffExp// | -> | ``new`` //Type// ``(`` //[PureExp]// ``)`` 
-  |  |  **|**  | ``new`` ``local`` //Type// ``(`` //[PureExp]// ``)`` 
+  | //EffExp// | -> | ``new`` //QType// ``(`` //[PureExp]// ``)`` 
+  |  |  **|**  | ``new`` ``local`` //QType// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | //PureExp// ``.`` //LIdent// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | ``this`` ``.`` //LIdent// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | //PureExp// ``!`` //LIdent// ``(`` //[PureExp]// ``)`` 

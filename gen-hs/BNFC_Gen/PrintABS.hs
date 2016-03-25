@@ -313,8 +313,8 @@ instance Print Literal where
 
 instance Print EffExp where
   prt i e = case e of
-    New type_ pureexps -> prPrec i 0 (concatD [doc (showString "new"), prt 0 type_, doc (showString "("), prt 0 pureexps, doc (showString ")")])
-    NewLocal type_ pureexps -> prPrec i 0 (concatD [doc (showString "new"), doc (showString "local"), prt 0 type_, doc (showString "("), prt 0 pureexps, doc (showString ")")])
+    New qtype pureexps -> prPrec i 0 (concatD [doc (showString "new"), prt 0 qtype, doc (showString "("), prt 0 pureexps, doc (showString ")")])
+    NewLocal qtype pureexps -> prPrec i 0 (concatD [doc (showString "new"), doc (showString "local"), prt 0 qtype, doc (showString "("), prt 0 pureexps, doc (showString ")")])
     SyncMethCall pureexp lident pureexps -> prPrec i 0 (concatD [prt 0 pureexp, doc (showString "."), prt 0 lident, doc (showString "("), prt 0 pureexps, doc (showString ")")])
     ThisSyncMethCall lident pureexps -> prPrec i 0 (concatD [doc (showString "this"), doc (showString "."), prt 0 lident, doc (showString "("), prt 0 pureexps, doc (showString ")")])
     AsyncMethCall pureexp lident pureexps -> prPrec i 0 (concatD [prt 0 pureexp, doc (showString "!"), prt 0 lident, doc (showString "("), prt 0 pureexps, doc (showString ")")])

@@ -181,8 +181,8 @@ data Literal = LNull | LThis | LThisDC | LStr String | LInt Integer
   deriving (Show, Read)
 
 data EffExp
-    = New Type [PureExp]
-    | NewLocal Type [PureExp]
+    = New QType [PureExp]
+    | NewLocal QType [PureExp]
     | SyncMethCall PureExp LIdent [PureExp]
     | ThisSyncMethCall LIdent [PureExp]
     | AsyncMethCall PureExp LIdent [PureExp]

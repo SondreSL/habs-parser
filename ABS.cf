@@ -179,8 +179,8 @@ LStr.    Literal ::= String ;
 LInt.    Literal ::= Integer ;
 
 -- Effectful Expressions
-New. EffExp ::= "new" Type "(" [PureExp] ")" ;
-NewLocal. EffExp ::= "new" "local" Type "(" [PureExp] ")" ;
+New. EffExp ::= "new" QType "(" [PureExp] ")" ;
+NewLocal. EffExp ::= "new" "local" QType "(" [PureExp] ")" ;
 SyncMethCall. EffExp ::= PureExp "." LIdent "(" [PureExp] ")" ;
 ThisSyncMethCall. EffExp ::= "this" "." LIdent "(" [PureExp] ")" ;
 AsyncMethCall. EffExp ::= PureExp "!" LIdent "(" [PureExp] ")" ;
