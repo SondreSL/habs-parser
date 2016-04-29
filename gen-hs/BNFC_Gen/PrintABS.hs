@@ -318,6 +318,7 @@ instance Print EffExp where
     SyncMethCall pureexp lident pureexps -> prPrec i 0 (concatD [prt 0 pureexp, doc (showString "."), prt 0 lident, doc (showString "("), prt 0 pureexps, doc (showString ")")])
     ThisSyncMethCall lident pureexps -> prPrec i 0 (concatD [doc (showString "this"), doc (showString "."), prt 0 lident, doc (showString "("), prt 0 pureexps, doc (showString ")")])
     AsyncMethCall pureexp lident pureexps -> prPrec i 0 (concatD [prt 0 pureexp, doc (showString "!"), prt 0 lident, doc (showString "("), prt 0 pureexps, doc (showString ")")])
+    AwaitMethCall pureexp lident pureexps -> prPrec i 0 (concatD [doc (showString "await"), prt 0 pureexp, doc (showString "!"), prt 0 lident, doc (showString "("), prt 0 pureexps, doc (showString ")")])
     ThisAsyncMethCall lident pureexps -> prPrec i 0 (concatD [doc (showString "this"), doc (showString "!"), prt 0 lident, doc (showString "("), prt 0 pureexps, doc (showString ")")])
     Get pureexp -> prPrec i 0 (concatD [prt 0 pureexp, doc (showString "."), doc (showString "get")])
     ProGet pureexp -> prPrec i 0 (concatD [prt 0 pureexp, doc (showString "."), doc (showString "pro_get")])

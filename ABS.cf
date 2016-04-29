@@ -184,6 +184,7 @@ NewLocal. EffExp ::= "new" "local" QType "(" [PureExp] ")" ;
 SyncMethCall. EffExp ::= PureExp "." LIdent "(" [PureExp] ")" ;
 ThisSyncMethCall. EffExp ::= "this" "." LIdent "(" [PureExp] ")" ;
 AsyncMethCall. EffExp ::= PureExp "!" LIdent "(" [PureExp] ")" ;
+AwaitMethCall. EffExp ::= "await" PureExp "!" LIdent "(" [PureExp] ")" ;
 ThisAsyncMethCall. EffExp ::= "this" "!" LIdent "(" [PureExp] ")" ;
 Get. EffExp ::= PureExp "." "get" ;
 ProGet. EffExp ::= PureExp "." "pro_get" ; -- not official ABS, only used by an extension in the Haskell backend

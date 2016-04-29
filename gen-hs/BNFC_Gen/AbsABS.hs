@@ -186,6 +186,7 @@ data EffExp
     | SyncMethCall PureExp LIdent [PureExp]
     | ThisSyncMethCall LIdent [PureExp]
     | AsyncMethCall PureExp LIdent [PureExp]
+    | AwaitMethCall PureExp LIdent [PureExp]
     | ThisAsyncMethCall LIdent [PureExp]
     | Get PureExp
     | ProGet PureExp

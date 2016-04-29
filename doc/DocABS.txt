@@ -231,6 +231,7 @@ All other symbols are terminals.
   |  |  **|**  | //PureExp// ``.`` //LIdent// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | ``this`` ``.`` //LIdent// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | //PureExp// ``!`` //LIdent// ``(`` //[PureExp]// ``)`` 
+  |  |  **|**  | ``await`` //PureExp// ``!`` //LIdent// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | ``this`` ``!`` //LIdent// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | //PureExp// ``.`` ``get`` 
   |  |  **|**  | //PureExp// ``.`` ``pro_get`` 
