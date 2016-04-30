@@ -24,10 +24,10 @@ Integer literals //Integer// are nonempty sequences of digits.
 
 
 UIdent literals are recognized by the regular expression
-`````upper (letter | digit | '_' | ''')*`````
+`````upper (letter | digit | '_')*`````
 
 LIdent literals are recognized by the regular expression
-`````lower (letter | digit | '_' | ''')*`````
+`````lower (letter | digit | '_')*`````
 
 
 ===Reserved words and symbols===
