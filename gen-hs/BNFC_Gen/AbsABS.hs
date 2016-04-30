@@ -7,128 +7,108 @@ module BNFC_Gen.AbsABS where
 
 
 
-newtype UIdent = UIdent ((Int,Int),String)
-  deriving (Show, Read)
-newtype LIdent = LIdent ((Int,Int),String)
-  deriving (Show, Read)
-data AnyIdent = AnyIden LIdent | AnyTyIden UIdent
+newtype U = U ((Int,Int),String) deriving (Show, Read)
+newtype L = L ((Int,Int),String) deriving (Show, Read)
+data Literal = LNull | LThis | LStr String | LInt Integer | LThisDC
   deriving (Show, Read)
 
-data Program = Prog [Module]
+data QU = U_ U | QU U QU
   deriving (Show, Read)
 
-data Module = Modul QType [Export] [Import] [AnnotDecl] MaybeBlock
+data QL = L_ L | QL U QL
+  deriving (Show, Read)
+
+data QA = LA L | UA U | QA U QA
+  deriving (Show, Read)
+
+data T = TSimple QU | TGen QU [T] | TInfer
+  deriving (Show, Read)
+
+data Param = Par T L
+  deriving (Show, Read)
+
+data Program = Program [Module]
+  deriving (Show, Read)
+
+data Module = Module QU [Export] [Import] [AnnDecl] MaybeBlock
   deriving (Show, Read)
 
 data Export
-    = AnyExport [AnyIdent]
-    | AnyFromExport [AnyIdent] QType
-    | StarExport
-    | StarFromExport QType
+    = StarExport
+    | StarFromExport QU
+    | AnyExport [QA]
+    | AnyFromExport [QA] QU
   deriving (Show, Read)
 
 data Import
-    = AnyImport ImportType TType AnyIdent
-    | AnyFromImport ImportType [AnyIdent] QType
-    | StarFromImport ImportType QType
+    = StarFromImport IsForeign QU
+    | AnyImport IsForeign [QA]
+    | AnyFromImport IsForeign [QA] QU
   deriving (Show, Read)
 
-data ImportType = ForeignImport | NormalImport
-  deriving (Show, Read)
-
-data Type = TUnderscore | TSimple QType | TGen QType [Type]
-  deriving (Show, Read)
-
-data QType = QTyp [QTypeSegment]
-  deriving (Show, Read)
-
-data QTypeSegment = QTypeSegmen UIdent
-  deriving (Show, Read)
-
-data TType = TTyp [TTypeSegment]
-  deriving (Show, Read)
-
-data TTypeSegment = TTypeSegmen UIdent
+data IsForeign = Native | Foreign
   deriving (Show, Read)
 
 data Decl
-    = TypeDecl UIdent Type
-    | TypeParDecl UIdent [UIdent] Type
+    = TypeDecl U T
+    | TypeParDecl U [U] T
     | ExceptionDecl ConstrIdent
-    | DataDecl UIdent [ConstrIdent]
-    | DataParDecl UIdent [UIdent] [ConstrIdent]
-    | FunDecl Type LIdent [Param] FunBody
-    | FunParDecl Type LIdent [UIdent] [Param] FunBody
-    | InterfDecl UIdent [AnnotMethSignat]
-    | ExtendsDecl UIdent [QType] [AnnotMethSignat]
-    | ClassDecl UIdent [ClassBody] MaybeBlock [ClassBody]
-    | ClassParamDecl UIdent [Param] [ClassBody] MaybeBlock [ClassBody]
-    | ClassImplements UIdent [QType] [ClassBody] MaybeBlock [ClassBody]
-    | ClassParamImplements UIdent [Param] [QType] [ClassBody] MaybeBlock [ClassBody]
+    | DataDecl U [ConstrIdent]
+    | DataParDecl U [U] [ConstrIdent]
+    | FunDecl T L [Param] FunBody
+    | FunParDecl T L [U] [Param] FunBody
+    | InterfDecl U [MethSignat]
+    | ExtendsDecl U [QU] [MethSignat]
+    | ClassDecl U [ClassBody] MaybeBlock [ClassBody]
+    | ClassParamDecl U [Param] [ClassBody] MaybeBlock [ClassBody]
+    | ClassImplements U [QU] [ClassBody] MaybeBlock [ClassBody]
+    | ClassParamImplements U [Param] [QU] [ClassBody] MaybeBlock [ClassBody]
   deriving (Show, Read)
 
 data ConstrIdent
-    = SinglConstrIdent UIdent | ParamConstrIdent UIdent [ConstrType]
+    = SinglConstrIdent U | ParamConstrIdent U [ConstrType]
   deriving (Show, Read)
 
-data ConstrType
-    = EmptyConstrType Type | RecordConstrType Type LIdent
+data ConstrType = EmptyConstrType T | RecordConstrType T L
   deriving (Show, Read)
 
 data FunBody = BuiltinFunBody | NormalFunBody PureExp
   deriving (Show, Read)
 
-data MethSignat = MethSig Type LIdent [Param]
+data MethSignat = MethSignat [Ann] T L [Param]
   deriving (Show, Read)
 
 data ClassBody
-    = FieldClassBody Type LIdent
-    | FieldAssignClassBody Type LIdent PureExp
-    | MethClassBody Type LIdent [Param] Block
-  deriving (Show, Read)
-
-data Block = Bloc [AnnotStm]
-  deriving (Show, Read)
-
-data MaybeBlock = JustBlock [Annot] Block | NoBlock
-  deriving (Show, Read)
-
-data Param = Par Type LIdent
+    = FieldClassBody T L
+    | FieldAssignClassBody T L PureExp
+    | MethClassBody T L [Param] [AnnStm]
   deriving (Show, Read)
 
 data Stm
     = SExp Exp
-    | SBlock [AnnotStm]
-    | SWhile PureExp AnnotStm
-    | SReturn Exp
-    | SAss LIdent Exp
-    | SFieldAss LIdent Exp
-    | SDec Type LIdent
-    | SDecAss Type LIdent Exp
-    | SIf PureExp AnnotStm
-    | SIfElse PureExp AnnotStm AnnotStm
-    | SSuspend
     | SSkip
+    | SSuspend
+    | SReturn Exp
     | SAssert PureExp
-    | SAwait AwaitGuard
-    | SThrow PureExp
-    | SGive PureExp PureExp
-    | STryCatchFinally AnnotStm [CatchBranch] MaybeFinally
     | SPrint PureExp
-  deriving (Show, Read)
-
-data CatchBranch = CatchBranc Pattern AnnotStm
-  deriving (Show, Read)
-
-data MaybeFinally = JustFinally AnnotStm | NoFinally
+    | SAwait AwaitGuard
+    | SAss L Exp
+    | SFieldAss L Exp
+    | SDec T L
+    | SDecAss T L Exp
+    | SWhile PureExp AnnStm
+    | SIf PureExp Stm
+    | SIfElse PureExp Stm Stm
+    | SBlock [AnnStm]
+    | SThrow PureExp
+    | STryCatchFinally AnnStm [CatchBranch] MaybeFinally
+    | SGive PureExp PureExp
   deriving (Show, Read)
 
 data AwaitGuard
-    = FutGuard LIdent
-    | ProGuard LIdent
-    | FutFieldGuard LIdent
-    | ProFieldGuard LIdent
-    | ExpGuard PureExp
+    = ExpGuard PureExp
+    | FutFieldGuard L
+    | FutGuard L
     | AndGuard AwaitGuard AwaitGuard
   deriving (Show, Read)
 
@@ -151,15 +131,12 @@ data PureExp
     | EMod PureExp PureExp
     | ELogNeg PureExp
     | EIntNeg PureExp
-    | EFunCall LIdent [PureExp]
-    | EQualFunCall TType LIdent [PureExp]
-    | ENaryFunCall LIdent [PureExp]
-    | ENaryQualFunCall TType LIdent [PureExp]
-    | EVar LIdent
-    | EThis LIdent
-    | EQualVar TType LIdent
-    | ESinglConstr QType
-    | EParamConstr QType [PureExp]
+    | EFunCall QL [PureExp]
+    | ENaryFunCall QL [PureExp]
+    | EVar L
+    | EThis L
+    | ESinglConstr QU
+    | EParamConstr QU [PureExp]
     | ELit Literal
     | Let Param PureExp PureExp
     | If PureExp PureExp PureExp
@@ -170,44 +147,44 @@ data CaseBranch = CaseBranc Pattern PureExp
   deriving (Show, Read)
 
 data Pattern
-    = PIdent LIdent
-    | PLit Literal
-    | PSinglConstr UIdent
-    | PParamConstr UIdent [Pattern]
+    = PLit Literal
+    | PIdent L
+    | PSinglConstr QU
+    | PParamConstr QU [Pattern]
     | PUnderscore
   deriving (Show, Read)
 
-data Literal = LNull | LThis | LThisDC | LStr String | LInt Integer
-  deriving (Show, Read)
-
 data EffExp
-    = New QType [PureExp]
-    | NewLocal QType [PureExp]
-    | SyncMethCall PureExp LIdent [PureExp]
-    | ThisSyncMethCall LIdent [PureExp]
-    | AsyncMethCall PureExp LIdent [PureExp]
-    | AwaitMethCall PureExp LIdent [PureExp]
-    | ThisAsyncMethCall LIdent [PureExp]
+    = New QU [PureExp]
+    | NewLocal QU [PureExp]
+    | SyncMethCall PureExp L [PureExp]
+    | ThisSyncMethCall L [PureExp]
+    | AsyncMethCall PureExp L [PureExp]
+    | AwaitMethCall PureExp L [PureExp]
+    | ThisAsyncMethCall L [PureExp]
     | Get PureExp
-    | ProGet PureExp
     | ProNew
-    | ProEmpty PureExp
     | ProTry PureExp
-    | Spawns PureExp Type [PureExp]
   deriving (Show, Read)
 
-data Annot = Ann Annot_
+data Ann = Ann Ann_
   deriving (Show, Read)
 
-data Annot_ = AnnWithType Type PureExp | AnnNoType PureExp
+data Ann_ = AnnNoType PureExp | AnnWithType T PureExp
   deriving (Show, Read)
 
-data AnnotStm = AnnStm [Annot] Stm
+data AnnStm = AnnStm [Ann] Stm
   deriving (Show, Read)
 
-data AnnotDecl = AnnDec [Annot] Decl
+data AnnDecl = AnnDecl [Ann] Decl
   deriving (Show, Read)
 
-data AnnotMethSignat = AnnMethSig [Annot] MethSignat
+data CatchBranch = CatchBranc Pattern AnnStm
+  deriving (Show, Read)
+
+data MaybeFinally = JustFinally AnnStm | NoFinally
+  deriving (Show, Read)
+
+data MaybeBlock = JustBlock [AnnStm] | NoBlock
   deriving (Show, Read)
 

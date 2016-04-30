@@ -5,14 +5,14 @@ module ABS.AST
 
 import BNFC_Gen.AbsABS
 
-instance Eq UIdent where
-    UIdent (_,s1) == UIdent (_, s2) = s1 == s2
+instance Eq U where
+    U (_,s1) == U (_, s2) = s1 == s2
 
-instance Eq LIdent where
-    LIdent (_,s1) == LIdent (_, s2) = s1 == s2
+instance Eq L where
+    L (_,s1) == L (_, s2) = s1 == s2
 
-instance Ord UIdent where
-   compare (UIdent (_,s1)) (UIdent (_,s2)) = compare s1 s2
+instance Ord U where
+   compare (U (_,s1)) (U (_,s2)) = compare s1 s2
 
-instance Ord LIdent where
-   compare (LIdent (_,s1)) (LIdent (_,s2)) = compare s1 s2
+instance Ord L where
+   compare (L (_,s1)) (L (_,s2)) = compare s1 s2
