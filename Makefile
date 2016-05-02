@@ -10,14 +10,13 @@ generate:
 	happy -gca ${GEN_DIR}/${GEN_NS}/ParABS.y
 	alex -g ${GEN_DIR}/${GEN_NS}/LexABS.x
 	-rm ${GEN_DIR}/${GEN_NS}/{LexABS.x,ParABS.y,TestABS.hs,SkelABS.hs,*.bak}
-	-mkdir doc
-	mv ${GEN_DIR}/${GEN_NS}/DocABS.txt doc/
 	sed -i -e 's/deriving (Eq, Ord, /deriving (/' ${GEN_DIR}/${GEN_NS}/AbsABS.hs # remove Eq,Ord generated instances
 
 doc:
-	txt2tags -t html --toc doc/DocABS.txt
+	txt2tags -t html --toc ${GEN_DIR}/${GEN_NS}/DocABS.txt
+	@echo "BNF documentation generated at ${GEN_DIR}/${GEN_NS}/DocABS.html"
 
 clean:
-	-rm -r gen-hs doc dist
+	-rm -r gen-hs dist
 
 .PHONY: generate clean doc

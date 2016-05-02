@@ -24,7 +24,7 @@ matrix:
       addons: {apt: {packages: [cabal-install-1.22,ghc-7.10.2], sources: [hvr-ghc]}}
     - env: CABALVER=1.22 GHCVER=7.10.3
       compiler: ": #GHC 7.10.3"
-      addons: {apt: {packages: [cabal-install-1.22,ghc-7.10.3,hscolour], sources: [hvr-ghc]}}
+      addons: {apt: {packages: [cabal-install-1.22,ghc-7.10.3,hscolour,txt2tags], sources: [hvr-ghc]}}
 
 before_install:
  - unset CC
@@ -86,7 +86,8 @@ after_success:
   - if [ "$TRAVIS_BRANCH" == "master" -a "$TRAVIS_PULL_REQUEST" == "false" -a "$GHCVER" == "7.10.3" ]; 
     then
        cabal haddock --hyperlink-source --html-location='http://hackage.haskell.org/packages/archive/$pkg/latest/doc/html';
-       cp doc/DocABS.html dist/doc/html/habs-parser/;
+       txt2tags -t html --toc gen-hs/BNFC_Gen/DocABS.txt
+       cp gen-hs/BNFC_Gen/DocABS.html dist/doc/html/habs-parser/;
        cd dist/doc/html/habs-parser/;
        git init;
        git config user.name "Travis CI";
