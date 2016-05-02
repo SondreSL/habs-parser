@@ -86,7 +86,7 @@ after_success:
   - if [ "$TRAVIS_BRANCH" == "master" -a "$TRAVIS_PULL_REQUEST" == "false" -a "$GHCVER" == "7.10.3" ]; 
     then
        cabal haddock --hyperlink-source --html-location='http://hackage.haskell.org/packages/archive/$pkg/latest/doc/html';
-       txt2tags -t html --toc gen-hs/BNFC_Gen/DocABS.txt
+       txt2tags -t html --toc gen-hs/BNFC_Gen/DocABS.txt;
        cp gen-hs/BNFC_Gen/DocABS.html dist/doc/html/habs-parser/;
        cd dist/doc/html/habs-parser/;
        git init;
