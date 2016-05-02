@@ -1,5 +1,5 @@
 {-# LANGUAGE CPP,MagicHash #-}
-{-# LINE 3 "gen-hs/BNFC_Gen/LexABS.x" #-}
+{-# LINE 3 "gen-hs\BNFC_Gen\LexABS.x" #-}
 
 {-# OPTIONS -fno-warn-incomplete-patterns #-}
 {-# OPTIONS_GHC -w #-}
@@ -9,6 +9,7 @@ module BNFC_Gen.LexABS where
 
 import qualified Data.Bits
 import Data.Word (Word8)
+import Data.Char (ord)
 
 #if __GLASGOW_HASKELL__ >= 603
 #include "ghcconfig.h"
@@ -41,7 +42,7 @@ alex_deflt :: AlexAddr
 alex_deflt = AlexA# "\xff\xff\x0b\x00\xff\xff\xff\xff\x0b\x00\x0b\x00\x0c\x00\x0c\x00\x0e\x00\xff\xff\x0e\x00\x0b\x00\x15\x00\x15\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x16\x00\x16\x00\x16\x00\x16\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"#
 
 alex_accept = listArray (0::Int,35) [AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccSkip,AlexAccSkip,AlexAccSkip,AlexAcc (alex_action_3),AlexAcc (alex_action_3),AlexAcc (alex_action_3),AlexAcc (alex_action_3),AlexAcc (alex_action_3),AlexAcc (alex_action_3),AlexAcc (alex_action_4),AlexAcc (alex_action_5),AlexAcc (alex_action_6),AlexAcc (alex_action_7),AlexAcc (alex_action_8)]
-{-# LINE 40 "gen-hs/BNFC_Gen/LexABS.x" #-}
+{-# LINE 41 "gen-hs\BNFC_Gen\LexABS.x" #-}
 
 
 tok :: (Posn -> String -> Token) -> (Posn -> String -> Token)
@@ -196,14 +197,13 @@ alex_action_5 =  tok (\p s -> PT p (eitherResIdent (T_L . share) s))
 alex_action_6 =  tok (\p s -> PT p (eitherResIdent (TV . share) s)) 
 alex_action_7 =  tok (\p s -> PT p (TL $ share $ unescapeInitTail s)) 
 alex_action_8 =  tok (\p s -> PT p (TI $ share s))    
-{-# LINE 1 "templates/GenericTemplate.hs" #-}
-{-# LINE 1 "templates/GenericTemplate.hs" #-}
+{-# LINE 1 "templates\GenericTemplate.hs" #-}
+{-# LINE 1 "templates\\GenericTemplate.hs" #-}
 {-# LINE 1 "<built-in>" #-}
 {-# LINE 1 "<command-line>" #-}
-{-# LINE 10 "<command-line>" #-}
-# 1 "/usr/include/stdc-predef.h" 1 3 4
+{-# LINE 11 "<command-line>" #-}
+{-# LINE 1 "G:\\GitHub\\haskell-platform\\build\\ghc-bindist\\local\\lib/include\\ghcversion.h" #-}
 
-# 17 "/usr/include/stdc-predef.h" 3 4
 
 
 
@@ -220,58 +220,8 @@ alex_action_8 =  tok (\p s -> PT p (TI $ share s))
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{-# LINE 10 "<command-line>" #-}
-{-# LINE 1 "/usr/lib/ghc-7.10.1/include/ghcversion.h" #-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{-# LINE 10 "<command-line>" #-}
-{-# LINE 1 "templates/GenericTemplate.hs" #-}
+{-# LINE 11 "<command-line>" #-}
+{-# LINE 1 "templates\\GenericTemplate.hs" #-}
 -- -----------------------------------------------------------------------------
 -- ALEX TEMPLATE
 --
@@ -281,7 +231,7 @@ alex_action_8 =  tok (\p s -> PT p (TI $ share s))
 -- -----------------------------------------------------------------------------
 -- INTERNALS and main scanner engine
 
-{-# LINE 21 "templates/GenericTemplate.hs" #-}
+{-# LINE 21 "templates\\GenericTemplate.hs" #-}
 
 
 
@@ -295,7 +245,7 @@ alex_action_8 =  tok (\p s -> PT p (TI $ share s))
 #define GTE(n,m) (n >=# m)
 #define EQ(n,m) (n ==# m)
 #endif
-{-# LINE 51 "templates/GenericTemplate.hs" #-}
+{-# LINE 51 "templates\\GenericTemplate.hs" #-}
 
 
 data AlexAddr = AlexA# Addr#
@@ -431,7 +381,7 @@ alex_scan_tkn user orig_input len input s last_acc =
 	check_accs (AlexAccNone) = last_acc
 	check_accs (AlexAcc a  ) = AlexLastAcc a input (I# (len))
 	check_accs (AlexAccSkip) = AlexLastSkip  input (I# (len))
-{-# LINE 198 "templates/GenericTemplate.hs" #-}
+{-# LINE 198 "templates\\GenericTemplate.hs" #-}
 
 data AlexLastAcc a
   = AlexNone
@@ -447,7 +397,7 @@ data AlexAcc a user
   = AlexAccNone
   | AlexAcc a
   | AlexAccSkip
-{-# LINE 242 "templates/GenericTemplate.hs" #-}
+{-# LINE 242 "templates\\GenericTemplate.hs" #-}
 
 -- used by wrappers
 iUnbox (I# (i)) = i

@@ -40,15 +40,15 @@ separator nonempty QA "," ; -- for imports/exports
 -- TYPES
 --------
 TSimple. T ::= QU ;
-TGen. T    ::= QU "<" [T] ">" ;
+TPoly. T    ::= QU "<" [T] ">" ;
 TInfer. T  ::= "_" ;  -- habs-only: for type inference
 separator nonempty T "," ;
 
 
 -- FORMAL PARAMETERS
 --------------------
-Par. Param ::= T L ;
-separator Param "," ;  -- for list of formal parameters
+FormalPar. FormalPar ::= T L ;
+separator FormalPar "," ;  -- for list of formal parameters
 
 
 -- ENTRY PROGRAM
@@ -89,11 +89,10 @@ Foreign. IsForeign ::= "fimport" ; -- habs-only: is used to FFI to Haskell libra
 
 -- ADT DECLARATIONS
 -------------------
-TypeDecl. Decl      ::= "type" U "=" T ";" ;
-TypeParDecl. Decl   ::= "type" U "<" [U] ">" "=" T ";" ;
-ExceptionDecl. Decl ::= "exception" ConstrIdent ";" ;
-DataDecl. Decl      ::= "data" U "=" [ConstrIdent] ";" ;
-DataParDecl. Decl   ::= "data" U "<" [U] ">" "=" [ConstrIdent] ";" ;
+DType. Decl      ::= "type" U "=" T ";" ;
+DTypePoly. Decl   ::= "type" U "<" [U] ">" "=" T ";" ;
+DData. Decl      ::= "data" U "=" [ConstrIdent] ";" ;
+DDataPoly. Decl   ::= "data" U "<" [U] ">" "=" [ConstrIdent] ";" ;
 
 separator nonempty ConstrIdent "|" ;
 SinglConstrIdent. ConstrIdent ::= U ;
@@ -106,35 +105,34 @@ RecordConstrType. ConstrType ::= T L ;
 
 -- FUNCTION DECLARATIONS
 ------------------------
-FunDecl.  Decl   ::= "def" T L "(" [Param] ")" "=" FunBody ";" ;
-FunParDecl. Decl ::= "def" T L "<" [U] ">" "(" [Param] ")" "=" FunBody ";" ;
+DFun.  Decl   ::= "def" T L "(" [FormalPar] ")" "=" FunBody ";" ;
+DFunPoly. Decl ::= "def" T L "<" [U] ">" "(" [FormalPar] ")" "=" FunBody ";" ;
 BuiltinFunBody. FunBody ::= "builtin" ;
 NormalFunBody. FunBody  ::= PureExp ;
 
 -- INTERFACE DECLARATIONS
 -------------------------
-InterfDecl. Decl  ::= "interface" U "{" [MethSignat] "}" ;
-ExtendsDecl. Decl ::= "interface" U "extends" [QU] "{" [MethSignat] "}" ;
+DInterf. Decl  ::= "interface" U "{" [MethSignat] "}" ;
+DExtends. Decl ::= "interface" U "extends" [QU] "{" [MethSignat] "}" ;
 
 terminator MethSignat ";" ;
-MethSignat. MethSignat ::= [Ann] T L "(" [Param] ")" ;
+MethSignat. MethSignat ::= [Ann] T L "(" [FormalPar] ")" ;
 
 
 -- CLASS DECLARATIONS
 ---------------------
-ClassDecl. Decl            ::= "class" U "{" [ClassBody] MaybeBlock [ClassBody] "}" ;
-ClassParamDecl. Decl       ::= "class" U "(" [Param] ")" "{" [ClassBody] MaybeBlock [ClassBody]  "}" ;
-ClassImplements. Decl      ::= "class" U "implements" [QU] "{" [ClassBody] MaybeBlock [ClassBody]  "}" ;
-ClassParamImplements. Decl ::= "class" U "(" [Param] ")" "implements" [QU]  "{" [ClassBody] MaybeBlock [ClassBody]  "}" ;
+DClass. Decl                ::= "class" U "{" [ClassBody] MaybeBlock [ClassBody] "}" ;
+DClassPar. Decl           ::= "class" U "(" [FormalPar] ")" "{" [ClassBody] MaybeBlock [ClassBody]  "}" ;
+DClassImplements. Decl      ::= "class" U "implements" [QU] "{" [ClassBody] MaybeBlock [ClassBody]  "}" ;
+DClassParImplements. Decl ::= "class" U "(" [FormalPar] ")" "implements" [QU]  "{" [ClassBody] MaybeBlock [ClassBody]  "}" ;
 
 separator ClassBody "" ;
 FieldClassBody. ClassBody       ::= T L ";" ;
 FieldAssignClassBody. ClassBody ::= T L "=" PureExp ";" ;
-MethClassBody. ClassBody        ::= T L "(" [Param] ")" "{" [AnnStm] "}" ; -- braces are required
+MethClassBody. ClassBody        ::= T L "(" [FormalPar] ")" "{" [AnnStm] "}" ; -- braces are required
 
 -- STATEMENTS
 --------------
-SExp.    Stm   ::= Exp ";" ; -- standalone expression
 SSkip.    Stm  ::= "skip" ";" ;
 SSuspend. Stm  ::= "suspend" ";" ;
 SReturn.  Stm  ::= "return" Exp ";" ;
@@ -151,14 +149,22 @@ SWhile.  Stm   ::= "while" "(" PureExp ")" AnnStm ;
 SIf.     Stm   ::= "if" "(" PureExp ")" Stm ; -- annstm here makes rr conflict
 SIfElse. Stm   ::= "if" "(" PureExp ")" Stm "else" Stm ; -- annstm here makes rr conflict
 
+SCase. Stm     ::= "case" PureExp "{" [SCaseBranch] "}" ;
+SCaseBranch. SCaseBranch ::= Pattern "=>" AnnStm ;
+separator nonempty SCaseBranch "" ; -- cannot be empty, does not have to be terminated by ";"
+
 SBlock.  Stm   ::= "{" [AnnStm] "}" ;
+
+SExp.    Stm   ::= Exp ";" ; -- standalone expression
+
+
 
 -- AWAIT GUARDS
 ---------------
-ExpGuard. AwaitGuard      ::= PureExp ;
-FutFieldGuard. AwaitGuard ::= "this" "." L "?" ;
-FutGuard. AwaitGuard      ::= L "?" ;
-AndGuard. AwaitGuard      ::= AwaitGuard "&" AwaitGuard ;
+GFut. AwaitGuard      ::= L "?" ;
+GFutField. AwaitGuard ::= "this" "." L "?" ;
+GExp. AwaitGuard      ::= PureExp ;
+GAnd. AwaitGuard      ::= AwaitGuard "&" AwaitGuard ;
 
 -- EXPRESSIONS
 --------------
@@ -192,21 +198,22 @@ EParamConstr. PureExp7   ::= QU "(" [PureExp] ")" ;
 ELit.    PureExp7        ::= Literal ;
 coercions PureExp 7 ;
 
-Let. PureExp          ::= "let" "(" Param ")" "=" PureExp "in" PureExp ;
-If. PureExp           ::= "if" PureExp "then" PureExp "else" PureExp ;
-Case. PureExp         ::= "case" PureExp "{" [CaseBranch] "}" ;
+ELet. PureExp          ::= "let" "(" FormalPar ")" "=" PureExp "in" PureExp ;
+EIf. PureExp           ::= "if" PureExp "then" PureExp "else" PureExp ;
+
+ECase. PureExp         ::= "case" PureExp "{" [ECaseBranch] "}" ;
+ECaseBranch. ECaseBranch ::= Pattern "=>" PureExp ;
+terminator nonempty ECaseBranch ";" ;
 
 -- PATTERN MATCHING
 -------------------
-CaseBranc. CaseBranch ::= Pattern "=>" PureExp ;
-terminator nonempty CaseBranch ";" ;
 
 separator Pattern "," ;
 PLit. Pattern         ::= Literal ;
-PIdent. Pattern       ::= L ;
+PVar. Pattern         ::= L ;
 PSinglConstr. Pattern ::= QU ;
 PParamConstr. Pattern ::= QU "(" [Pattern] ")" ;
-PUnderscore. Pattern  ::= "_" ;
+PWildcard. Pattern    ::= "_" ;
 
 
 -- EFFECTFUL EXPRESSIONS
@@ -230,21 +237,19 @@ AnnNoType.   Ann_ ::= PureExp  ;
 AnnWithType. Ann_ ::= T ":" PureExp ;
 
 AnnStm. AnnStm ::= [Ann] Stm;
-terminator AnnStm "" ;
+separator AnnStm "" ;
 
 AnnDecl. AnnDecl ::= [Ann] Decl;
-terminator AnnDecl "" ;
+separator AnnDecl "" ;
 
 -- missing: classbody and type annotations
 -- both yield many rr conflicts
 
 -- EXTENSION, EXCEPTIONS
 ------------------------
+DException. Decl ::= "exception" ConstrIdent ";" ;
 SThrow. Stm           ::= "throw" PureExp ";" ;
-STryCatchFinally. Stm ::= "try" AnnStm "catch" "{" [CatchBranch] "}" MaybeFinally ;
-
-CatchBranc. CatchBranch ::= Pattern "=>" AnnStm ;
-terminator CatchBranch "" ; -- can be empty, and does not have to be terminated by ";"
+STryCatchFinally. Stm ::= "try" AnnStm "catch" "{" [SCaseBranch] "}" MaybeFinally ;
 
 JustFinally. MaybeFinally ::= "finally" AnnStm ;
 NoFinally. MaybeFinally   ::= ;

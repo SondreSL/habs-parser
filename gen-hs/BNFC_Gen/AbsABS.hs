@@ -21,10 +21,10 @@ data QL = L_ L | QL U QL
 data QA = LA L | UA U | QA U QA
   deriving (Show, Read)
 
-data T = TSimple QU | TGen QU [T] | TInfer
+data T = TSimple QU | TPoly QU [T] | TInfer
   deriving (Show, Read)
 
-data Param = Par T L
+data FormalPar = FormalPar T L
   deriving (Show, Read)
 
 data Program = Program [Module]
@@ -50,19 +50,19 @@ data IsForeign = Native | Foreign
   deriving (Show, Read)
 
 data Decl
-    = TypeDecl U T
-    | TypeParDecl U [U] T
-    | ExceptionDecl ConstrIdent
-    | DataDecl U [ConstrIdent]
-    | DataParDecl U [U] [ConstrIdent]
-    | FunDecl T L [Param] FunBody
-    | FunParDecl T L [U] [Param] FunBody
-    | InterfDecl U [MethSignat]
-    | ExtendsDecl U [QU] [MethSignat]
-    | ClassDecl U [ClassBody] MaybeBlock [ClassBody]
-    | ClassParamDecl U [Param] [ClassBody] MaybeBlock [ClassBody]
-    | ClassImplements U [QU] [ClassBody] MaybeBlock [ClassBody]
-    | ClassParamImplements U [Param] [QU] [ClassBody] MaybeBlock [ClassBody]
+    = DType U T
+    | DTypePoly U [U] T
+    | DData U [ConstrIdent]
+    | DDataPoly U [U] [ConstrIdent]
+    | DFun T L [FormalPar] FunBody
+    | DFunPoly T L [U] [FormalPar] FunBody
+    | DInterf U [MethSignat]
+    | DExtends U [QU] [MethSignat]
+    | DClass U [ClassBody] MaybeBlock [ClassBody]
+    | DClassPar U [FormalPar] [ClassBody] MaybeBlock [ClassBody]
+    | DClassImplements U [QU] [ClassBody] MaybeBlock [ClassBody]
+    | DClassParImplements U [FormalPar] [QU] [ClassBody] MaybeBlock [ClassBody]
+    | DException ConstrIdent
   deriving (Show, Read)
 
 data ConstrIdent
@@ -75,18 +75,17 @@ data ConstrType = EmptyConstrType T | RecordConstrType T L
 data FunBody = BuiltinFunBody | NormalFunBody PureExp
   deriving (Show, Read)
 
-data MethSignat = MethSignat [Ann] T L [Param]
+data MethSignat = MethSignat [Ann] T L [FormalPar]
   deriving (Show, Read)
 
 data ClassBody
     = FieldClassBody T L
     | FieldAssignClassBody T L PureExp
-    | MethClassBody T L [Param] [AnnStm]
+    | MethClassBody T L [FormalPar] [AnnStm]
   deriving (Show, Read)
 
 data Stm
-    = SExp Exp
-    | SSkip
+    = SSkip
     | SSuspend
     | SReturn Exp
     | SAssert PureExp
@@ -99,17 +98,19 @@ data Stm
     | SWhile PureExp AnnStm
     | SIf PureExp Stm
     | SIfElse PureExp Stm Stm
+    | SCase PureExp [SCaseBranch]
     | SBlock [AnnStm]
+    | SExp Exp
     | SThrow PureExp
-    | STryCatchFinally AnnStm [CatchBranch] MaybeFinally
+    | STryCatchFinally AnnStm [SCaseBranch] MaybeFinally
     | SGive PureExp PureExp
   deriving (Show, Read)
 
+data SCaseBranch = SCaseBranch Pattern AnnStm
+  deriving (Show, Read)
+
 data AwaitGuard
-    = ExpGuard PureExp
-    | FutFieldGuard L
-    | FutGuard L
-    | AndGuard AwaitGuard AwaitGuard
+    = GFut L | GFutField L | GExp PureExp | GAnd AwaitGuard AwaitGuard
   deriving (Show, Read)
 
 data Exp = ExpP PureExp | ExpE EffExp
@@ -138,20 +139,20 @@ data PureExp
     | ESinglConstr QU
     | EParamConstr QU [PureExp]
     | ELit Literal
-    | Let Param PureExp PureExp
-    | If PureExp PureExp PureExp
-    | Case PureExp [CaseBranch]
+    | ELet FormalPar PureExp PureExp
+    | EIf PureExp PureExp PureExp
+    | ECase PureExp [ECaseBranch]
   deriving (Show, Read)
 
-data CaseBranch = CaseBranc Pattern PureExp
+data ECaseBranch = ECaseBranch Pattern PureExp
   deriving (Show, Read)
 
 data Pattern
     = PLit Literal
-    | PIdent L
+    | PVar L
     | PSinglConstr QU
     | PParamConstr QU [Pattern]
-    | PUnderscore
+    | PWildcard
   deriving (Show, Read)
 
 data EffExp
@@ -177,9 +178,6 @@ data AnnStm = AnnStm [Ann] Stm
   deriving (Show, Read)
 
 data AnnDecl = AnnDecl [Ann] Decl
-  deriving (Show, Read)
-
-data CatchBranch = CatchBranc Pattern AnnStm
   deriving (Show, Read)
 
 data MaybeFinally = JustFinally AnnStm | NoFinally
