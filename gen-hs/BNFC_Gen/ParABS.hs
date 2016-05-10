@@ -192,16 +192,16 @@ happyIn32 x = Happy_GHC_Exts.unsafeCoerce# x
 happyOut32 :: (HappyAbsSyn ) -> (FunBody)
 happyOut32 x = Happy_GHC_Exts.unsafeCoerce# x
 {-# INLINE happyOut32 #-}
-happyIn33 :: ([MethSignat]) -> (HappyAbsSyn )
+happyIn33 :: ([MethSig]) -> (HappyAbsSyn )
 happyIn33 x = Happy_GHC_Exts.unsafeCoerce# x
 {-# INLINE happyIn33 #-}
-happyOut33 :: (HappyAbsSyn ) -> ([MethSignat])
+happyOut33 :: (HappyAbsSyn ) -> ([MethSig])
 happyOut33 x = Happy_GHC_Exts.unsafeCoerce# x
 {-# INLINE happyOut33 #-}
-happyIn34 :: (MethSignat) -> (HappyAbsSyn )
+happyIn34 :: (MethSig) -> (HappyAbsSyn )
 happyIn34 x = Happy_GHC_Exts.unsafeCoerce# x
 {-# INLINE happyIn34 #-}
-happyOut34 :: (HappyAbsSyn ) -> (MethSignat)
+happyOut34 :: (HappyAbsSyn ) -> (MethSig)
 happyOut34 x = Happy_GHC_Exts.unsafeCoerce# x
 {-# INLINE happyOut34 #-}
 happyIn35 :: ([ClassBody]) -> (HappyAbsSyn )
@@ -979,13 +979,13 @@ happyReduction_46 happy_x_3
 happyReduce_47 = happySpecReduce_1  22# happyReduction_47
 happyReduction_47 happy_x_1
 	 =  happyIn26
-		 (BNFC_Gen.AbsABS.Native
+		 (BNFC_Gen.AbsABS.NoForeign
 	)
 
 happyReduce_48 = happySpecReduce_1  22# happyReduction_48
 happyReduction_48 happy_x_1
 	 =  happyIn26
-		 (BNFC_Gen.AbsABS.Foreign
+		 (BNFC_Gen.AbsABS.YesForeign
 	)
 
 happyReduce_49 = happyReduce 5# 23# happyReduction_49
@@ -1325,7 +1325,7 @@ happyReduction_75 (happy_x_6 `HappyStk`
 	case happyOut7 happy_x_3 of { happy_var_3 -> 
 	case happyOut18 happy_x_5 of { happy_var_5 -> 
 	happyIn34
-		 (BNFC_Gen.AbsABS.MethSignat (reverse happy_var_1) happy_var_2 happy_var_3 happy_var_5
+		 (BNFC_Gen.AbsABS.MethSig (reverse happy_var_1) happy_var_2 happy_var_3 happy_var_5
 	) `HappyStk` happyRest}}}}
 
 happyReduce_76 = happySpecReduce_0  31# happyReduction_76
@@ -2095,7 +2095,7 @@ happyReduction_154 (happy_x_4 `HappyStk`
 happyReduce_155 = happySpecReduce_1  50# happyReduction_155
 happyReduction_155 happy_x_1
 	 =  happyIn54
-		 (BNFC_Gen.AbsABS.PWildcard
+		 (BNFC_Gen.AbsABS.PWildCard
 	)
 
 happyReduce_156 = happyReduce 5# 51# happyReduction_156

@@ -154,8 +154,8 @@ instance Print Import where
   prtList _ (x:xs) = (concatD [prt 0 x, doc (showString ";"), prt 0 xs])
 instance Print IsForeign where
   prt i e = case e of
-    Native -> prPrec i 0 (concatD [doc (showString "import")])
-    Foreign -> prPrec i 0 (concatD [doc (showString "fimport")])
+    NoForeign -> prPrec i 0 (concatD [doc (showString "import")])
+    YesForeign -> prPrec i 0 (concatD [doc (showString "fimport")])
 
 instance Print Decl where
   prt i e = case e of
@@ -165,8 +165,8 @@ instance Print Decl where
     DDataPoly u us constridents -> prPrec i 0 (concatD [doc (showString "data"), prt 0 u, doc (showString "<"), prt 0 us, doc (showString ">"), doc (showString "="), prt 0 constridents, doc (showString ";")])
     DFun t l formalpars funbody -> prPrec i 0 (concatD [doc (showString "def"), prt 0 t, prt 0 l, doc (showString "("), prt 0 formalpars, doc (showString ")"), doc (showString "="), prt 0 funbody, doc (showString ";")])
     DFunPoly t l us formalpars funbody -> prPrec i 0 (concatD [doc (showString "def"), prt 0 t, prt 0 l, doc (showString "<"), prt 0 us, doc (showString ">"), doc (showString "("), prt 0 formalpars, doc (showString ")"), doc (showString "="), prt 0 funbody, doc (showString ";")])
-    DInterf u methsignats -> prPrec i 0 (concatD [doc (showString "interface"), prt 0 u, doc (showString "{"), prt 0 methsignats, doc (showString "}")])
-    DExtends u qus methsignats -> prPrec i 0 (concatD [doc (showString "interface"), prt 0 u, doc (showString "extends"), prt 0 qus, doc (showString "{"), prt 0 methsignats, doc (showString "}")])
+    DInterf u methsigs -> prPrec i 0 (concatD [doc (showString "interface"), prt 0 u, doc (showString "{"), prt 0 methsigs, doc (showString "}")])
+    DExtends u qus methsigs -> prPrec i 0 (concatD [doc (showString "interface"), prt 0 u, doc (showString "extends"), prt 0 qus, doc (showString "{"), prt 0 methsigs, doc (showString "}")])
     DClass u classbodys1 maybeblock classbodys2 -> prPrec i 0 (concatD [doc (showString "class"), prt 0 u, doc (showString "{"), prt 0 classbodys1, prt 0 maybeblock, prt 0 classbodys2, doc (showString "}")])
     DClassPar u formalpars classbodys1 maybeblock classbodys2 -> prPrec i 0 (concatD [doc (showString "class"), prt 0 u, doc (showString "("), prt 0 formalpars, doc (showString ")"), doc (showString "{"), prt 0 classbodys1, prt 0 maybeblock, prt 0 classbodys2, doc (showString "}")])
     DClassImplements u qus classbodys1 maybeblock classbodys2 -> prPrec i 0 (concatD [doc (showString "class"), prt 0 u, doc (showString "implements"), prt 0 qus, doc (showString "{"), prt 0 classbodys1, prt 0 maybeblock, prt 0 classbodys2, doc (showString "}")])
@@ -191,9 +191,9 @@ instance Print FunBody where
     BuiltinFunBody -> prPrec i 0 (concatD [doc (showString "builtin")])
     NormalFunBody pureexp -> prPrec i 0 (concatD [prt 0 pureexp])
 
-instance Print MethSignat where
+instance Print MethSig where
   prt i e = case e of
-    MethSignat anns t l formalpars -> prPrec i 0 (concatD [prt 0 anns, prt 0 t, prt 0 l, doc (showString "("), prt 0 formalpars, doc (showString ")")])
+    MethSig anns t l formalpars -> prPrec i 0 (concatD [prt 0 anns, prt 0 t, prt 0 l, doc (showString "("), prt 0 formalpars, doc (showString ")")])
   prtList _ [] = (concatD [])
   prtList _ (x:xs) = (concatD [prt 0 x, doc (showString ";"), prt 0 xs])
 instance Print ClassBody where
@@ -283,7 +283,7 @@ instance Print Pattern where
     PVar l -> prPrec i 0 (concatD [prt 0 l])
     PSinglConstr qu -> prPrec i 0 (concatD [prt 0 qu])
     PParamConstr qu patterns -> prPrec i 0 (concatD [prt 0 qu, doc (showString "("), prt 0 patterns, doc (showString ")")])
-    PWildcard -> prPrec i 0 (concatD [doc (showString "_")])
+    PWildCard -> prPrec i 0 (concatD [doc (showString "_")])
   prtList _ [] = (concatD [])
   prtList _ [x] = (concatD [prt 0 x])
   prtList _ (x:xs) = (concatD [prt 0 x, doc (showString ","), prt 0 xs])

@@ -114,8 +114,8 @@ All other symbols are terminals.
   |  |  **|**  | ``data`` //U// ``<`` //[U]// ``>`` ``=`` //[ConstrIdent]// ``;`` 
   |  |  **|**  | ``def`` //T// //L// ``(`` //[FormalPar]// ``)`` ``=`` //FunBody// ``;`` 
   |  |  **|**  | ``def`` //T// //L// ``<`` //[U]// ``>`` ``(`` //[FormalPar]// ``)`` ``=`` //FunBody// ``;`` 
-  |  |  **|**  | ``interface`` //U// ``{`` //[MethSignat]// ``}`` 
-  |  |  **|**  | ``interface`` //U// ``extends`` //[QU]// ``{`` //[MethSignat]// ``}`` 
+  |  |  **|**  | ``interface`` //U// ``{`` //[MethSig]// ``}`` 
+  |  |  **|**  | ``interface`` //U// ``extends`` //[QU]// ``{`` //[MethSig]// ``}`` 
   |  |  **|**  | ``class`` //U// ``{`` //[ClassBody]// //MaybeBlock// //[ClassBody]// ``}`` 
   |  |  **|**  | ``class`` //U// ``(`` //[FormalPar]// ``)`` ``{`` //[ClassBody]// //MaybeBlock// //[ClassBody]// ``}`` 
   |  |  **|**  | ``class`` //U// ``implements`` //[QU]// ``{`` //[ClassBody]// //MaybeBlock// //[ClassBody]// ``}`` 
@@ -132,9 +132,9 @@ All other symbols are terminals.
   |  |  **|**  | //T// //L// 
   | //FunBody// | -> | ``builtin`` 
   |  |  **|**  | //PureExp// 
-  | //[MethSignat]// | -> | **eps**
-  |  |  **|**  | //MethSignat// ``;`` //[MethSignat]// 
-  | //MethSignat// | -> | //[Ann]// //T// //L// ``(`` //[FormalPar]// ``)`` 
+  | //[MethSig]// | -> | **eps**
+  |  |  **|**  | //MethSig// ``;`` //[MethSig]// 
+  | //MethSig// | -> | //[Ann]// //T// //L// ``(`` //[FormalPar]// ``)`` 
   | //[ClassBody]// | -> | **eps**
   |  |  **|**  | //ClassBody// //[ClassBody]// 
   | //ClassBody// | -> | //T// //L// ``;`` 

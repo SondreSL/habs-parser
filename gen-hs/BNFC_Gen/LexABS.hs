@@ -1,5 +1,5 @@
 {-# LANGUAGE CPP,MagicHash #-}
-{-# LINE 3 "gen-hs\BNFC_Gen\LexABS.x" #-}
+{-# LINE 3 "gen-hs/BNFC_Gen/LexABS.x" #-}
 
 {-# OPTIONS -fno-warn-incomplete-patterns #-}
 {-# OPTIONS_GHC -w #-}
@@ -42,7 +42,7 @@ alex_deflt :: AlexAddr
 alex_deflt = AlexA# "\xff\xff\x0b\x00\xff\xff\xff\xff\x0b\x00\x0b\x00\x0c\x00\x0c\x00\x0e\x00\xff\xff\x0e\x00\x0b\x00\x15\x00\x15\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x16\x00\x16\x00\x16\x00\x16\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"#
 
 alex_accept = listArray (0::Int,35) [AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccNone,AlexAccSkip,AlexAccSkip,AlexAccSkip,AlexAcc (alex_action_3),AlexAcc (alex_action_3),AlexAcc (alex_action_3),AlexAcc (alex_action_3),AlexAcc (alex_action_3),AlexAcc (alex_action_3),AlexAcc (alex_action_4),AlexAcc (alex_action_5),AlexAcc (alex_action_6),AlexAcc (alex_action_7),AlexAcc (alex_action_8)]
-{-# LINE 41 "gen-hs\BNFC_Gen\LexABS.x" #-}
+{-# LINE 41 "gen-hs/BNFC_Gen/LexABS.x" #-}
 
 
 tok :: (Posn -> String -> Token) -> (Posn -> String -> Token)

@@ -46,7 +46,7 @@ data Import
     | AnyFromImport IsForeign [QA] QU
   deriving (Show, Read)
 
-data IsForeign = Native | Foreign
+data IsForeign = NoForeign | YesForeign
   deriving (Show, Read)
 
 data Decl
@@ -56,8 +56,8 @@ data Decl
     | DDataPoly U [U] [ConstrIdent]
     | DFun T L [FormalPar] FunBody
     | DFunPoly T L [U] [FormalPar] FunBody
-    | DInterf U [MethSignat]
-    | DExtends U [QU] [MethSignat]
+    | DInterf U [MethSig]
+    | DExtends U [QU] [MethSig]
     | DClass U [ClassBody] MaybeBlock [ClassBody]
     | DClassPar U [FormalPar] [ClassBody] MaybeBlock [ClassBody]
     | DClassImplements U [QU] [ClassBody] MaybeBlock [ClassBody]
@@ -75,7 +75,7 @@ data ConstrType = EmptyConstrType T | RecordConstrType T L
 data FunBody = BuiltinFunBody | NormalFunBody PureExp
   deriving (Show, Read)
 
-data MethSignat = MethSignat [Ann] T L [FormalPar]
+data MethSig = MethSig [Ann] T L [FormalPar]
   deriving (Show, Read)
 
 data ClassBody
@@ -152,7 +152,7 @@ data Pattern
     | PVar L
     | PSinglConstr QU
     | PParamConstr QU [Pattern]
-    | PWildcard
+    | PWildCard
   deriving (Show, Read)
 
 data EffExp

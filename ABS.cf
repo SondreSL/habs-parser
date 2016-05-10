@@ -79,8 +79,8 @@ AnyImport. Import      ::= IsForeign [QA] ;
 AnyFromImport. Import  ::= IsForeign [QA] "from" QU ; -- note to self: should be unqualified, but for parser issues do the check it at codegen
 terminator Import ";" ;
 
-Native. IsForeign  ::= "import" ;
-Foreign. IsForeign ::= "fimport" ; -- habs-only: is used to FFI to Haskell libraries
+NoForeign. IsForeign  ::= "import" ;
+YesForeign. IsForeign ::= "fimport" ; -- habs-only: is used to FFI to Haskell libraries
 
 
 -- DECLARATIONS 
@@ -112,11 +112,11 @@ NormalFunBody. FunBody  ::= PureExp ;
 
 -- INTERFACE DECLARATIONS
 -------------------------
-DInterf. Decl  ::= "interface" U "{" [MethSignat] "}" ;
-DExtends. Decl ::= "interface" U "extends" [QU] "{" [MethSignat] "}" ;
+DInterf. Decl  ::= "interface" U "{" [MethSig] "}" ;
+DExtends. Decl ::= "interface" U "extends" [QU] "{" [MethSig] "}" ;
 
-terminator MethSignat ";" ;
-MethSignat. MethSignat ::= [Ann] T L "(" [FormalPar] ")" ;
+terminator MethSig ";" ;
+MethSig. MethSig ::= [Ann] T L "(" [FormalPar] ")" ;
 
 
 -- CLASS DECLARATIONS
@@ -213,7 +213,7 @@ PLit. Pattern         ::= Literal ;
 PVar. Pattern         ::= L ;
 PSinglConstr. Pattern ::= QU ;
 PParamConstr. Pattern ::= QU "(" [Pattern] ")" ;
-PWildcard. Pattern    ::= "_" ;
+PWildCard. Pattern    ::= "_" ;
 
 
 -- EFFECTFUL EXPRESSIONS
