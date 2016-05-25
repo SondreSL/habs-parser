@@ -56,11 +56,14 @@ library
   ghc-options: -Wall -fno-warn-orphans
   hs-source-dirs: src, gen-hs
 
-test-suite parse-samples
+test-suite unit
   type: exitcode-stdio-1.0
-  main-is: parse-samples.hs
+  main-is: unit.hs
   build-depends:
     base,
     habs-parser,
+    tasty,
+    tasty-hunit,
+    tasty-html,
     directory
   hs-source-dirs: tests
