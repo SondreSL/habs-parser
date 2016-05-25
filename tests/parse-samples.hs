@@ -1,4 +1,3 @@
-{-# LANGUAGE LambdaCase #-}
 module Main where
 
 import ABS.Parser
@@ -22,17 +21,21 @@ main = do
             then return pathToSampleSubmodule
             else error "USAGE: git submodule update --init; cabal test *OR* cabal test --test-option=PATH_TO_abs-samples_DIR"
           else return $ head argv
-  res <- parseFileOrDir samplesDir
-  let failed = filter (\case 
-                       (_,Bad _) -> True
-                       _ -> False
-                      ) res
+  
+  resSamples <- parseFileOrDir samplesDir
+  
+  let failedSamples = filter (\ resSample -> case resSample of
+                               (_,Bad _) -> True
+                               _ -> False
+                             ) resSamples
+  
   mapM_ (\ (fp, Bad errorString) -> do
            putStrLn $ "ABS sample failed to parse: " ++ fp 
            putStrLn errorString
-        ) failed
-  let countFailed = length failed
-  let countAll = length res
+        ) failedSamples
+  
+  let countFailed = length failedSamples
+  let countAll = length resSamples
   putStrLn $ "Successfully parsed:" ++ show (countAll - countFailed) ++ "/" ++ show countAll
   when (countFailed /= 0) exitFailure
 
