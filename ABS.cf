@@ -10,7 +10,7 @@ LNull.   Literal ::= "null" ;
 LThis.   Literal ::= "this" ;
 LStr.    Literal ::= String ;
 LInt.    Literal ::= Integer ;
-
+LFloat.  Literal ::= Double ;
 
 -- IDENTIFIER TOKENS
 --------------------

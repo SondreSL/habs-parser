@@ -95,6 +95,7 @@ instance Print Literal where
     LThis -> prPrec i 0 (concatD [doc (showString "this")])
     LStr str -> prPrec i 0 (concatD [prt 0 str])
     LInt n -> prPrec i 0 (concatD [prt 0 n])
+    LFloat d -> prPrec i 0 (concatD [prt 0 d])
     LThisDC -> prPrec i 0 (concatD [doc (showString "thisDC")])
 
 instance Print QU where

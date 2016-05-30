@@ -23,6 +23,7 @@ AbsABS.hs.bak
 PrintABS.hs.bak
 SkelABS.hs.bak
 TestABS.hs
+SkelABS.hs
 
 # OTHER
 *.ast

@@ -9,7 +9,13 @@ module BNFC_Gen.AbsABS where
 
 newtype U = U ((Int,Int),String) deriving (Show, Read)
 newtype L = L ((Int,Int),String) deriving (Show, Read)
-data Literal = LNull | LThis | LStr String | LInt Integer | LThisDC
+data Literal
+    = LNull
+    | LThis
+    | LStr String
+    | LInt Integer
+    | LFloat Double
+    | LThisDC
   deriving (Show, Read)
 
 data QU = U_ U | QU U QU
