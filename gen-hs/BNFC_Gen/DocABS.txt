@@ -42,14 +42,15 @@ The set of reserved words is the set of terminals appearing in the grammar. Thos
 The reserved words used in ABS are the following:
   | ``assert`` | ``await`` | ``builtin`` | ``case``
   | ``catch`` | ``class`` | ``data`` | ``def``
-  | ``else`` | ``exception`` | ``export`` | ``extends``
-  | ``fimport`` | ``finally`` | ``from`` | ``get``
-  | ``if`` | ``implements`` | ``import`` | ``in``
-  | ``interface`` | ``let`` | ``local`` | ``module``
-  | ``new`` | ``null`` | ``println`` | ``pro_give``
-  | ``pro_new`` | ``pro_try`` | ``return`` | ``skip``
-  | ``suspend`` | ``then`` | ``this`` | ``thisDC``
-  | ``throw`` | ``try`` | ``type`` | ``while``
+  | ``duration`` | ``else`` | ``exception`` | ``export``
+  | ``extends`` | ``fimport`` | ``finally`` | ``from``
+  | ``get`` | ``if`` | ``implements`` | ``import``
+  | ``in`` | ``interface`` | ``let`` | ``local``
+  | ``module`` | ``new`` | ``now`` | ``null``
+  | ``println`` | ``pro_give`` | ``pro_new`` | ``pro_try``
+  | ``return`` | ``skip`` | ``suspend`` | ``then``
+  | ``this`` | ``thisDC`` | ``throw`` | ``try``
+  | ``type`` | ``while`` |  | 
 
 The symbols used in ABS are the following:
   | . | , | < | >
@@ -166,6 +167,7 @@ All other symbols are terminals.
   |  |  **|**  | ``throw`` //PureExp// ``;`` 
   |  |  **|**  | ``try`` //AnnStm// ``catch`` ``{`` //[SCaseBranch]// ``}`` //MaybeFinally// 
   |  |  **|**  | //PureExp// ``.`` ``pro_give`` ``(`` //PureExp// ``)`` ``;`` 
+  |  |  **|**  | ``duration`` ``(`` //PureExp// ``,`` //PureExp// ``)`` ``;`` 
   | //SCaseBranch// | -> | //Pattern// ``=>`` //AnnStm// 
   | //[SCaseBranch]// | -> | //SCaseBranch// 
   |  |  **|**  | //SCaseBranch// //[SCaseBranch]// 
@@ -173,6 +175,7 @@ All other symbols are terminals.
   |  |  **|**  | ``this`` ``.`` //L// ``?`` 
   |  |  **|**  | //PureExp// 
   |  |  **|**  | //AwaitGuard// ``&`` //AwaitGuard// 
+  |  |  **|**  | ``duration`` ``(`` //PureExp// ``,`` //PureExp// ``)`` 
   | //Exp// | -> | //PureExp// 
   |  |  **|**  | //EffExp// 
   | //[PureExp]// | -> | **eps**
@@ -232,6 +235,7 @@ All other symbols are terminals.
   |  |  **|**  | //PureExp// ``.`` ``get`` 
   |  |  **|**  | ``pro_new`` 
   |  |  **|**  | //PureExp// ``.`` ``pro_try`` 
+  |  |  **|**  | ``now`` ``(`` ``)`` 
   | //Ann// | -> | ``[`` //Ann_// ``]`` 
   | //[Ann]// | -> | **eps**
   |  |  **|**  | //Ann// //[Ann]// 

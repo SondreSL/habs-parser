@@ -225,6 +225,7 @@ instance Print Stm where
     SThrow pureexp -> prPrec i 0 (concatD [doc (showString "throw"), prt 0 pureexp, doc (showString ";")])
     STryCatchFinally annstm scasebranchs maybefinally -> prPrec i 0 (concatD [doc (showString "try"), prt 0 annstm, doc (showString "catch"), doc (showString "{"), prt 0 scasebranchs, doc (showString "}"), prt 0 maybefinally])
     SGive pureexp1 pureexp2 -> prPrec i 0 (concatD [prt 0 pureexp1, doc (showString "."), doc (showString "pro_give"), doc (showString "("), prt 0 pureexp2, doc (showString ")"), doc (showString ";")])
+    SDuration pureexp1 pureexp2 -> prPrec i 0 (concatD [doc (showString "duration"), doc (showString "("), prt 0 pureexp1, doc (showString ","), prt 0 pureexp2, doc (showString ")"), doc (showString ";")])
 
 instance Print SCaseBranch where
   prt i e = case e of
@@ -237,6 +238,7 @@ instance Print AwaitGuard where
     GFutField l -> prPrec i 0 (concatD [doc (showString "this"), doc (showString "."), prt 0 l, doc (showString "?")])
     GExp pureexp -> prPrec i 0 (concatD [prt 0 pureexp])
     GAnd awaitguard1 awaitguard2 -> prPrec i 0 (concatD [prt 0 awaitguard1, doc (showString "&"), prt 0 awaitguard2])
+    GDuration pureexp1 pureexp2 -> prPrec i 0 (concatD [doc (showString "duration"), doc (showString "("), prt 0 pureexp1, doc (showString ","), prt 0 pureexp2, doc (showString ")")])
 
 instance Print Exp where
   prt i e = case e of
@@ -300,6 +302,7 @@ instance Print EffExp where
     Get pureexp -> prPrec i 0 (concatD [prt 0 pureexp, doc (showString "."), doc (showString "get")])
     ProNew -> prPrec i 0 (concatD [doc (showString "pro_new")])
     ProTry pureexp -> prPrec i 0 (concatD [prt 0 pureexp, doc (showString "."), doc (showString "pro_try")])
+    Now -> prPrec i 0 (concatD [doc (showString "now"), doc (showString "("), doc (showString ")")])
 
 instance Print Ann where
   prt i e = case e of

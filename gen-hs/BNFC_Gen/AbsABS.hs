@@ -110,13 +110,18 @@ data Stm
     | SThrow PureExp
     | STryCatchFinally AnnStm [SCaseBranch] MaybeFinally
     | SGive PureExp PureExp
+    | SDuration PureExp PureExp
   deriving (Show, Read)
 
 data SCaseBranch = SCaseBranch Pattern AnnStm
   deriving (Show, Read)
 
 data AwaitGuard
-    = GFut L | GFutField L | GExp PureExp | GAnd AwaitGuard AwaitGuard
+    = GFut L
+    | GFutField L
+    | GExp PureExp
+    | GAnd AwaitGuard AwaitGuard
+    | GDuration PureExp PureExp
   deriving (Show, Read)
 
 data Exp = ExpP PureExp | ExpE EffExp
@@ -172,6 +177,7 @@ data EffExp
     | Get PureExp
     | ProNew
     | ProTry PureExp
+    | Now
   deriving (Show, Read)
 
 data Ann = Ann Ann_

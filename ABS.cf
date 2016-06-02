@@ -265,6 +265,12 @@ ProTry. EffExp ::= PureExp "." "pro_try" ; -- habs-only
 ----------------
 LThisDC.  Literal ::= "thisDC" ;
 
+
+-- EXTENSION, REALTIME
+SDuration. Stm ::= "duration" "(" PureExp "," PureExp ")" ";" ;
+GDuration. AwaitGuard ::= "duration" "(" PureExp "," PureExp ")" ;
+Now. EffExp ::= "now" "(" ")" ; -- habs doesn't put it in StdLib, because then it breaks the purity of ABS functions
+
 -- UTILS 
 --------------
 JustBlock. MaybeBlock ::= "{" [AnnStm] "}" ;
