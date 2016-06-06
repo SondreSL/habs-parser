@@ -95,7 +95,6 @@ data Stm
     | SSuspend
     | SReturn Exp
     | SAssert PureExp
-    | SPrint PureExp
     | SAwait AwaitGuard
     | SAss L Exp
     | SFieldAss L Exp
@@ -107,6 +106,9 @@ data Stm
     | SCase PureExp [SCaseBranch]
     | SBlock [AnnStm]
     | SExp Exp
+    | SPrint PureExp
+    | SPrintln PureExp
+    | SReadln
     | SThrow PureExp
     | STryCatchFinally AnnStm [SCaseBranch] MaybeFinally
     | SGive PureExp PureExp

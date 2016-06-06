@@ -47,10 +47,10 @@ The reserved words used in ABS are the following:
   | ``get`` | ``if`` | ``implements`` | ``import``
   | ``in`` | ``interface`` | ``let`` | ``local``
   | ``module`` | ``new`` | ``now`` | ``null``
-  | ``println`` | ``pro_give`` | ``pro_new`` | ``pro_try``
-  | ``return`` | ``skip`` | ``suspend`` | ``then``
-  | ``this`` | ``thisDC`` | ``throw`` | ``try``
-  | ``type`` | ``while`` |  | 
+  | ``print`` | ``println`` | ``pro_give`` | ``pro_new``
+  | ``pro_try`` | ``readln`` | ``return`` | ``skip``
+  | ``suspend`` | ``then`` | ``this`` | ``thisDC``
+  | ``throw`` | ``try`` | ``type`` | ``while``
 
 The symbols used in ABS are the following:
   | . | , | < | >
@@ -152,7 +152,6 @@ All other symbols are terminals.
   |  |  **|**  | ``suspend`` ``;`` 
   |  |  **|**  | ``return`` //Exp// ``;`` 
   |  |  **|**  | ``assert`` //PureExp// ``;`` 
-  |  |  **|**  | ``println`` //PureExp// ``;`` 
   |  |  **|**  | ``await`` //AwaitGuard// ``;`` 
   |  |  **|**  | //L// ``=`` //Exp// ``;`` 
   |  |  **|**  | ``this`` ``.`` //L// ``=`` //Exp// ``;`` 
@@ -164,6 +163,9 @@ All other symbols are terminals.
   |  |  **|**  | ``case`` //PureExp// ``{`` //[SCaseBranch]// ``}`` 
   |  |  **|**  | ``{`` //[AnnStm]// ``}`` 
   |  |  **|**  | //Exp// ``;`` 
+  |  |  **|**  | ``print`` //PureExp// ``;`` 
+  |  |  **|**  | ``println`` //PureExp// ``;`` 
+  |  |  **|**  | ``readln`` ``;`` 
   |  |  **|**  | ``throw`` //PureExp// ``;`` 
   |  |  **|**  | ``try`` //AnnStm// ``catch`` ``{`` //[SCaseBranch]// ``}`` //MaybeFinally// 
   |  |  **|**  | //PureExp// ``.`` ``pro_give`` ``(`` //PureExp// ``)`` ``;`` 

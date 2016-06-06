@@ -137,7 +137,6 @@ SSkip.    Stm  ::= "skip" ";" ;
 SSuspend. Stm  ::= "suspend" ";" ;
 SReturn.  Stm  ::= "return" Exp ";" ;
 SAssert.  Stm  ::= "assert" PureExp ";" ;
-SPrint. Stm    ::= "println" PureExp ";" ;
 SAwait.  Stm   ::= "await" AwaitGuard ";" ;
 
 SAss.    Stm   ::= L "=" Exp ";" ;
@@ -244,6 +243,12 @@ separator AnnDecl "" ;
 
 -- missing: classbody and type annotations
 -- both yield many rr conflicts
+
+-- EXTENSION, Input/Output
+SPrint. Stm      ::= "print" PureExp ";" ;
+SPrintln. Stm    ::= "println" PureExp ";" ;
+SReadln. Stm     ::= "readln" ";" ;
+
 
 -- EXTENSION, EXCEPTIONS
 ------------------------
