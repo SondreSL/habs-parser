@@ -108,7 +108,6 @@ data Stm
     | SExp Exp
     | SPrint PureExp
     | SPrintln PureExp
-    | SReadln
     | SThrow PureExp
     | STryCatchFinally AnnStm [SCaseBranch] MaybeFinally
     | SGive PureExp PureExp
@@ -177,6 +176,7 @@ data EffExp
     | AwaitMethCall PureExp L [PureExp]
     | ThisAsyncMethCall L [PureExp]
     | Get PureExp
+    | Readln
     | ProNew
     | ProTry PureExp
     | Now

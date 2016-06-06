@@ -165,7 +165,6 @@ All other symbols are terminals.
   |  |  **|**  | //Exp// ``;`` 
   |  |  **|**  | ``print`` //PureExp// ``;`` 
   |  |  **|**  | ``println`` //PureExp// ``;`` 
-  |  |  **|**  | ``readln`` ``;`` 
   |  |  **|**  | ``throw`` //PureExp// ``;`` 
   |  |  **|**  | ``try`` //AnnStm// ``catch`` ``{`` //[SCaseBranch]// ``}`` //MaybeFinally// 
   |  |  **|**  | //PureExp// ``.`` ``pro_give`` ``(`` //PureExp// ``)`` ``;`` 
@@ -235,6 +234,7 @@ All other symbols are terminals.
   |  |  **|**  | ``await`` //PureExp// ``!`` //L// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | ``this`` ``!`` //L// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | //PureExp// ``.`` ``get`` 
+  |  |  **|**  | ``readln`` ``;`` 
   |  |  **|**  | ``pro_new`` 
   |  |  **|**  | //PureExp// ``.`` ``pro_try`` 
   |  |  **|**  | ``now`` ``(`` ``)`` 
