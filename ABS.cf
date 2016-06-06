@@ -247,7 +247,7 @@ separator AnnDecl "" ;
 -- EXTENSION, Input/Output
 SPrint. Stm      ::= "print" PureExp ";" ;
 SPrintln. Stm    ::= "println" PureExp ";" ;
-Readln. EffExp     ::= "readln" ";" ;
+Readln. EffExp     ::= "readln" "(" ")" ";" ;
 
 
 -- EXTENSION, EXCEPTIONS

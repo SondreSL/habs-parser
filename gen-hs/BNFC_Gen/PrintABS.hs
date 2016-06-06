@@ -301,7 +301,7 @@ instance Print EffExp where
     AwaitMethCall pureexp l pureexps -> prPrec i 0 (concatD [doc (showString "await"), prt 0 pureexp, doc (showString "!"), prt 0 l, doc (showString "("), prt 0 pureexps, doc (showString ")")])
     ThisAsyncMethCall l pureexps -> prPrec i 0 (concatD [doc (showString "this"), doc (showString "!"), prt 0 l, doc (showString "("), prt 0 pureexps, doc (showString ")")])
     Get pureexp -> prPrec i 0 (concatD [prt 0 pureexp, doc (showString "."), doc (showString "get")])
-    Readln -> prPrec i 0 (concatD [doc (showString "readln"), doc (showString ";")])
+    Readln -> prPrec i 0 (concatD [doc (showString "readln"), doc (showString "("), doc (showString ")"), doc (showString ";")])
     ProNew -> prPrec i 0 (concatD [doc (showString "pro_new")])
     ProTry pureexp -> prPrec i 0 (concatD [prt 0 pureexp, doc (showString "."), doc (showString "pro_try")])
     Now -> prPrec i 0 (concatD [doc (showString "now"), doc (showString "("), doc (showString ")")])
