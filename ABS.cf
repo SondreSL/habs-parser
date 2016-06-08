@@ -220,10 +220,9 @@ PWildCard. Pattern    ::= "_" ;
 New. EffExp               ::= "new" QU "(" [PureExp] ")" ;
 NewLocal. EffExp          ::= "new" "local" QU "(" [PureExp] ")" ;
 SyncMethCall. EffExp      ::= PureExp "." L "(" [PureExp] ")" ;
-ThisSyncMethCall. EffExp  ::= "this" "." L "(" [PureExp] ")" ;
+ThisSyncMethCall. EffExp  ::= "this" "." L "(" [PureExp] ")" ; -- needed because of ambiguity with PureExp.EThis
 AsyncMethCall. EffExp     ::= PureExp "!" L "(" [PureExp] ")" ;
 AwaitMethCall. EffExp     ::= "await" PureExp "!" L "(" [PureExp] ")" ;
-ThisAsyncMethCall. EffExp ::= "this" "!" L "(" [PureExp] ")" ;
 Get. EffExp               ::= PureExp "." "get" ;
 
 

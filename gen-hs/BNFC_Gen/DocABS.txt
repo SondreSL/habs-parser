@@ -232,7 +232,6 @@ All other symbols are terminals.
   |  |  **|**  | ``this`` ``.`` //L// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | //PureExp// ``!`` //L// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | ``await`` //PureExp// ``!`` //L// ``(`` //[PureExp]// ``)`` 
-  |  |  **|**  | ``this`` ``!`` //L// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | //PureExp// ``.`` ``get`` 
   |  |  **|**  | ``readln`` ``(`` ``)`` ``;`` 
   |  |  **|**  | ``pro_new`` 

@@ -174,7 +174,6 @@ data EffExp
     | ThisSyncMethCall L [PureExp]
     | AsyncMethCall PureExp L [PureExp]
     | AwaitMethCall PureExp L [PureExp]
-    | ThisAsyncMethCall L [PureExp]
     | Get PureExp
     | Readln
     | ProNew
