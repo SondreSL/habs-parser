@@ -266,7 +266,7 @@ instance Print PureExp where
     EFunCall ql pureexps -> prPrec i 7 (concatD [prt 0 ql, doc (showString "("), prt 0 pureexps, doc (showString ")")])
     ENaryFunCall ql pureexps -> prPrec i 7 (concatD [prt 0 ql, doc (showString "["), prt 0 pureexps, doc (showString "]")])
     EVar l -> prPrec i 7 (concatD [prt 0 l])
-    EThis l -> prPrec i 7 (concatD [doc (showString "this"), doc (showString "."), prt 0 l])
+    EField l -> prPrec i 7 (concatD [doc (showString "this"), doc (showString "."), prt 0 l])
     ESinglConstr qu -> prPrec i 7 (concatD [prt 0 qu])
     EParamConstr qu pureexps -> prPrec i 7 (concatD [prt 0 qu, doc (showString "("), prt 0 pureexps, doc (showString ")")])
     ELit literal -> prPrec i 7 (concatD [prt 0 literal])

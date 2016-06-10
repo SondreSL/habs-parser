@@ -147,7 +147,7 @@ data PureExp
     | EFunCall QL [PureExp]
     | ENaryFunCall QL [PureExp]
     | EVar L
-    | EThis L
+    | EField L
     | ESinglConstr QU
     | EParamConstr QU [PureExp]
     | ELit Literal
