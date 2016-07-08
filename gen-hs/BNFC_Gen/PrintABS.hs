@@ -304,6 +304,7 @@ instance Print EffExp where
     ProNew -> prPrec i 0 (concatD [doc (showString "pro_new")])
     ProTry pureexp -> prPrec i 0 (concatD [prt 0 pureexp, doc (showString "."), doc (showString "pro_try")])
     Now -> prPrec i 0 (concatD [doc (showString "now"), doc (showString "("), doc (showString ")")])
+    Random pureexp -> prPrec i 0 (concatD [doc (showString "random"), doc (showString "("), prt 0 pureexp, doc (showString ")")])
 
 instance Print Ann where
   prt i e = case e of

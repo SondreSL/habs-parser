@@ -273,7 +273,8 @@ LThisDC.  Literal ::= "thisDC" ;
 -- EXTENSION, REALTIME
 SDuration. Stm ::= "duration" "(" PureExp "," PureExp ")" ";" ;
 GDuration. AwaitGuard ::= "duration" "(" PureExp "," PureExp ")" ;
-Now. EffExp ::= "now" "(" ")" ; -- habs doesn't put it in StdLib, because then it breaks the purity of ABS functions
+Now. EffExp ::= "now" "(" ")" ; -- -- not in StdLib of habs, because it would break purity
+Random. EffExp ::= "random" "(" PureExp")" ; -- not in StdLib of habs, because it would break purity 
 
 -- UTILS 
 --------------

@@ -48,9 +48,10 @@ The reserved words used in ABS are the following:
   | ``in`` | ``interface`` | ``let`` | ``local``
   | ``module`` | ``new`` | ``now`` | ``null``
   | ``print`` | ``println`` | ``pro_give`` | ``pro_new``
-  | ``pro_try`` | ``readln`` | ``return`` | ``skip``
-  | ``suspend`` | ``then`` | ``this`` | ``thisDC``
-  | ``throw`` | ``try`` | ``type`` | ``while``
+  | ``pro_try`` | ``random`` | ``readln`` | ``return``
+  | ``skip`` | ``suspend`` | ``then`` | ``this``
+  | ``thisDC`` | ``throw`` | ``try`` | ``type``
+  | ``while`` |  |  | 
 
 The symbols used in ABS are the following:
   | . | , | < | >
@@ -237,6 +238,7 @@ All other symbols are terminals.
   |  |  **|**  | ``pro_new`` 
   |  |  **|**  | //PureExp// ``.`` ``pro_try`` 
   |  |  **|**  | ``now`` ``(`` ``)`` 
+  |  |  **|**  | ``random`` ``(`` //PureExp// ``)`` 
   | //Ann// | -> | ``[`` //Ann_// ``]`` 
   | //[Ann]// | -> | **eps**
   |  |  **|**  | //Ann// //[Ann]// 

@@ -179,6 +179,7 @@ data EffExp
     | ProNew
     | ProTry PureExp
     | Now
+    | Random PureExp
   deriving (Show, Read)
 
 data Ann = Ann Ann_
