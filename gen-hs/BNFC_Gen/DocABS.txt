@@ -60,8 +60,8 @@ The symbols used in ABS are the following:
   | } | => | ? | &
   | || | && | == | !=
   | <= | >= | + | -
-  | / | % | ~ | [
-  | ] | ! | : | 
+  | / | % | ! | [
+  | ] | : |  | 
 
 ===Comments===
 Single-line comments begin with //.Multiple-line comments are  enclosed with /* and */.
@@ -205,7 +205,7 @@ All other symbols are terminals.
   |  |  **|**  | //PureExp5// ``/`` //PureExp6// 
   |  |  **|**  | //PureExp5// ``%`` //PureExp6// 
   |  |  **|**  | //PureExp6// 
-  | //PureExp6// | -> | ``~`` //PureExp6// 
+  | //PureExp6// | -> | ``!`` //PureExp6// 
   |  |  **|**  | ``-`` //PureExp6// 
   |  |  **|**  | //PureExp7// 
   | //PureExp7// | -> | //QL// ``(`` //[PureExp]// ``)`` 

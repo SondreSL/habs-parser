@@ -261,7 +261,7 @@ instance Print PureExp where
     EMul pureexp1 pureexp2 -> prPrec i 5 (concatD [prt 5 pureexp1, doc (showString "*"), prt 6 pureexp2])
     EDiv pureexp1 pureexp2 -> prPrec i 5 (concatD [prt 5 pureexp1, doc (showString "/"), prt 6 pureexp2])
     EMod pureexp1 pureexp2 -> prPrec i 5 (concatD [prt 5 pureexp1, doc (showString "%"), prt 6 pureexp2])
-    ELogNeg pureexp -> prPrec i 6 (concatD [doc (showString "~"), prt 6 pureexp])
+    ELogNeg pureexp -> prPrec i 6 (concatD [doc (showString "!"), prt 6 pureexp])
     EIntNeg pureexp -> prPrec i 6 (concatD [doc (showString "-"), prt 6 pureexp])
     EFunCall ql pureexps -> prPrec i 7 (concatD [prt 0 ql, doc (showString "("), prt 0 pureexps, doc (showString ")")])
     ENaryFunCall ql pureexps -> prPrec i 7 (concatD [prt 0 ql, doc (showString "["), prt 0 pureexps, doc (showString "]")])
