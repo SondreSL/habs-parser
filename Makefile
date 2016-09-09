@@ -6,7 +6,7 @@ GEN_NS=BNFC_Gen
 # regenerates the Haskell-written ABS-lexer&ABS-parser 
 generate:
 	-mkdir gen-hs
-	bnfc --haskell ABS.cf -p ${GEN_NS} -o ${GEN_DIR}
+	bnfc --haskell --ghc ABS.cf -p ${GEN_NS} -o ${GEN_DIR}
 	happy -gca ${GEN_DIR}/${GEN_NS}/ParABS.y
 	alex -g ${GEN_DIR}/${GEN_NS}/LexABS.x
 	-rm ${GEN_DIR}/${GEN_NS}/{LexABS.x,ParABS.y,TestABS.hs,SkelABS.hs,*.bak}
