@@ -12,12 +12,7 @@ newtype U = U ((Int,Int),String)
 newtype L = L ((Int,Int),String)
   deriving (Show, Read, Data, Typeable, Generic)
 data Literal
-    = LNull
-    | LThis
-    | LStr String
-    | LInt Integer
-    | LFloat Double
-    | LThisDC
+    = LNull | LThis | LStr String | LInt Integer | LFloat Double
   deriving (Show, Read, Data, Typeable, Generic)
 
 data QU = U_ U | QU U QU
@@ -180,7 +175,9 @@ data EffExp
     | Readln
     | ProNew
     | ProTry PureExp
+    | ThisDC
     | Now
+    | Currentms
     | Random PureExp
   deriving (Show, Read, Data, Typeable, Generic)
 

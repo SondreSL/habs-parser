@@ -96,7 +96,6 @@ instance Print Literal where
     LStr str -> prPrec i 0 (concatD [prt 0 str])
     LInt n -> prPrec i 0 (concatD [prt 0 n])
     LFloat d -> prPrec i 0 (concatD [prt 0 d])
-    LThisDC -> prPrec i 0 (concatD [doc (showString "thisDC")])
 
 instance Print QU where
   prt i e = case e of
@@ -303,7 +302,9 @@ instance Print EffExp where
     Readln -> prPrec i 0 (concatD [doc (showString "readln"), doc (showString "("), doc (showString ")"), doc (showString ";")])
     ProNew -> prPrec i 0 (concatD [doc (showString "pro_new")])
     ProTry pureexp -> prPrec i 0 (concatD [prt 0 pureexp, doc (showString "."), doc (showString "pro_try")])
+    ThisDC -> prPrec i 0 (concatD [doc (showString "thisDC"), doc (showString "("), doc (showString ")")])
     Now -> prPrec i 0 (concatD [doc (showString "now"), doc (showString "("), doc (showString ")")])
+    Currentms -> prPrec i 0 (concatD [doc (showString "currentms"), doc (showString "("), doc (showString ")")])
     Random pureexp -> prPrec i 0 (concatD [doc (showString "random"), doc (showString "("), prt 0 pureexp, doc (showString ")")])
 
 instance Print Ann where

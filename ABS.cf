@@ -267,13 +267,14 @@ ProTry. EffExp ::= PureExp "." "pro_try" ; -- habs-only
 
 -- EXTENSION, DC
 ----------------
-LThisDC.  Literal ::= "thisDC" ;
+ThisDC.  EffExp ::= "thisDC" "(" ")"; -- not in StdLib of habs, because it would break purity
 
 
 -- EXTENSION, REALTIME
 SDuration. Stm ::= "duration" "(" PureExp "," PureExp ")" ";" ;
 GDuration. AwaitGuard ::= "duration" "(" PureExp "," PureExp ")" ;
-Now. EffExp ::= "now" "(" ")" ; -- -- not in StdLib of habs, because it would break purity
+Now. EffExp ::= "now" "(" ")" ; -- not in StdLib of habs, because it would break purity
+Currentms. EffExp ::= "currentms" "(" ")" ; -- not in StdLib of habs, because it would break purity
 Random. EffExp ::= "random" "(" PureExp")" ; -- not in StdLib of habs, because it would break purity 
 
 -- UTILS 
