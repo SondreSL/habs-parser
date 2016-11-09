@@ -179,14 +179,8 @@ All other symbols are terminals.
   |  |  **|**  | ``duration`` ``(`` //PureExp// ``,`` //PureExp// ``)`` 
   | //Exp// | -> | //PureExp// 
   |  |  **|**  | //EffExp// 
-  | //[PureExp]// | -> | **eps**
-  |  |  **|**  | //PureExp// 
-  |  |  **|**  | //PureExp// ``,`` //[PureExp]// 
   | //PureExp// | -> | //PureExp// ``||`` //PureExp1// 
   |  |  **|**  | //PureExp1// 
-  |  |  **|**  | ``let`` ``(`` //FormalPar// ``)`` ``=`` //PureExp// ``in`` //PureExp// 
-  |  |  **|**  | ``if`` //PureExp// ``then`` //PureExp// ``else`` //PureExp// 
-  |  |  **|**  | ``case`` //PureExp// ``{`` //[ECaseBranch]// ``}`` 
   | //PureExp1// | -> | //PureExp1// ``&&`` //PureExp2// 
   |  |  **|**  | //PureExp2// 
   | //PureExp2// | -> | //PureExp2// ``==`` //PureExp3// 
@@ -214,7 +208,13 @@ All other symbols are terminals.
   |  |  **|**  | //QU// 
   |  |  **|**  | //QU// ``(`` //[PureExp]// ``)`` 
   |  |  **|**  | //Literal// 
+  |  |  **|**  | ``let`` ``(`` //FormalPar// ``)`` ``=`` //PureExp// ``in`` //PureExp// 
+  |  |  **|**  | ``if`` //PureExp// ``then`` //PureExp// ``else`` //PureExp// 
+  |  |  **|**  | ``case`` //PureExp// ``{`` //[ECaseBranch]// ``}`` 
   |  |  **|**  | ``(`` //PureExp// ``)`` 
+  | //[PureExp]// | -> | **eps**
+  |  |  **|**  | //PureExp// 
+  |  |  **|**  | //PureExp// ``,`` //[PureExp]// 
   | //ECaseBranch// | -> | //Pattern// ``=>`` //PureExp// 
   | //[ECaseBranch]// | -> | //ECaseBranch// ``;`` 
   |  |  **|**  | //ECaseBranch// ``;`` //[ECaseBranch]// 

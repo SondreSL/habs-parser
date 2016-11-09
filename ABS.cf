@@ -172,7 +172,6 @@ ExpE. Exp ::= EffExp ;
 
 -- PURE EXPRESSIONS
 -------------------
-separator PureExp "," ;  -- for passing arguments to function/method calls
 EOr.     PureExp         ::= PureExp "||" PureExp1 ;
 EAnd.    PureExp1        ::= PureExp1 "&&" PureExp2 ;
 EEq.     PureExp2        ::= PureExp2 "==" PureExp3 ;
@@ -195,12 +194,13 @@ EField.   PureExp7       ::= "this" "." L ;
 ESinglConstr.   PureExp7 ::= QU ;
 EParamConstr. PureExp7   ::= QU "(" [PureExp] ")" ;
 ELit.    PureExp7        ::= Literal ;
+ELet. PureExp7          ::= "let" "(" FormalPar ")" "=" PureExp "in" PureExp ;
+EIf. PureExp7           ::= "if" PureExp "then" PureExp "else" PureExp ;
+ECase. PureExp7         ::= "case" PureExp "{" [ECaseBranch] "}" ;
+
 coercions PureExp 7 ;
+separator PureExp "," ;  -- for passing arguments to function/method calls
 
-ELet. PureExp          ::= "let" "(" FormalPar ")" "=" PureExp "in" PureExp ;
-EIf. PureExp           ::= "if" PureExp "then" PureExp "else" PureExp ;
-
-ECase. PureExp         ::= "case" PureExp "{" [ECaseBranch] "}" ;
 ECaseBranch. ECaseBranch ::= Pattern "=>" PureExp ;
 terminator nonempty ECaseBranch ";" ;
 
