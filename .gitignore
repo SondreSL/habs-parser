@@ -30,6 +30,7 @@ SkelABS.hs
 *_flymake.abs
 *_flymake.hs
 TAGS
+.tags
 
 # OS
 *~
