@@ -42,10 +42,10 @@ library
     directory
   exposed-modules:
     ABS.AST,
-    ABS.Parser
-  other-modules:
+    ABS.Parser,
     -- the generated AST tree
-    BNFC_Gen.AbsABS,
+    BNFC_Gen.AbsABS
+  other-modules:
     -- the generated lexer
     BNFC_Gen.LexABS,
     -- the generated parser
